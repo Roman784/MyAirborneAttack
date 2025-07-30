@@ -1,7 +1,8 @@
 using System.Collections;
 using UnityEngine;
 using Utils;
-using Zenject;
+using R3;
+using System;
 
 namespace GameRoot
 {
@@ -13,15 +14,11 @@ namespace GameRoot
             Coroutines.Start(Run(enterParams));
         }
 
-        public override IEnumerator Run<T>(T enterParams)
+        public override IEnumerator Run<T>(T _)
         {
-            var isLoaded = false;
-
             SetAppSettings();
 
-            isLoaded = true;
-
-            yield return new WaitUntil(() => isLoaded);
+            yield return LoadGameConfig();
 
             StartGame();
         }
@@ -30,6 +27,19 @@ namespace GameRoot
         {
             Application.targetFrameRate = 60;
             Screen.sleepTimeout = SleepTimeout.NeverSleep;
+        }
+
+        private IEnumerator LoadGameConfig()
+        {
+            var isLoaded = false;
+            _configProvider.LoadGameConfig().Subscribe(result =>
+            {
+                if (result)
+                    isLoaded = true;
+                else
+                    throw new Exception("Failed to load the game config!");
+            });
+            yield return new WaitUntil(() => isLoaded);
         }
 
         // Starts the first scene the player will see.

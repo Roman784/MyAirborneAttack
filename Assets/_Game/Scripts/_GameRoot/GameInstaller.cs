@@ -1,3 +1,4 @@
+using Configs;
 using Zenject;
 
 namespace GameRoot
@@ -12,6 +13,7 @@ namespace GameRoot
         private void BindProviders()
         {
             Container.Bind<SceneProvider>().AsSingle();
+            Container.Bind<IConfigProvider>().To<ScriptableObjectConfigProvider>().AsSingle();
         }
     }
 }
