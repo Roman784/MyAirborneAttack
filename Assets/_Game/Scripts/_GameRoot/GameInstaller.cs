@@ -2,11 +2,16 @@ using Zenject;
 
 namespace GameRoot
 {
-    public class GameInstaller : MonoInstaller
+    public sealed class GameInstaller : MonoInstaller
     {
         public override void InstallBindings()
         {
-            
+            BindProviders();
+        }
+
+        private void BindProviders()
+        {
+            Container.Bind<SceneProvider>().AsSingle();
         }
     }
 }

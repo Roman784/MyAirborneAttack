@@ -1,11 +1,20 @@
 using System.Collections;
 using UnityEngine;
 using Utils;
+using Zenject;
 
 namespace GameRoot
 {
     public class GameEntryPoint : SceneEntryPoint
     {
+        private SceneProvider _sceneProvider;
+
+        [Inject]
+        private void Construct(SceneProvider sceneProvider)
+        {
+            _sceneProvider = sceneProvider;
+        }
+
         private void Start()
         {
             var enterParams = new SceneEnterParams(Scenes.BOOT);
@@ -22,18 +31,19 @@ namespace GameRoot
 
             yield return new WaitUntil(() => isLoaded);
 
-            LoadScene(enterParams);
-        }
-
-        private void LoadScene(SceneEnterParams currentEnterParams)
-        {
-            Debug.Log("Load gameplay");
+            StartGame();
         }
 
         private void SetAppSettings()
         {
             Application.targetFrameRate = 60;
             Screen.sleepTimeout = SleepTimeout.NeverSleep;
+        }
+
+        // Starts the first scene the player will see.
+        private void StartGame()
+        {
+            _sceneProvider.OpenGameplay();
         }
     }
 }

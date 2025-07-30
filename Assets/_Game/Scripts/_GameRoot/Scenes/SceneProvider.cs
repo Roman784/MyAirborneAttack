@@ -1,12 +1,19 @@
+using UnityEngine;
+
 namespace GameRoot
 {
     public class SceneProvider
     { 
         private readonly SceneLoader _sceneLoader;
 
-        public SceneProvider(SceneLoader sceneLoader)
+        public SceneProvider()
         {
-            _sceneLoader = sceneLoader;
+            _sceneLoader = new SceneLoader();
+        }
+
+        public void OpenGameplay()
+        {
+            Debug.Log("Load gameplay");
         }
     }
 }
