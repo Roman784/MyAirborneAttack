@@ -1,3 +1,4 @@
+using GameplayRoot;
 using UnityEngine;
 
 namespace GameRoot
@@ -13,7 +14,8 @@ namespace GameRoot
 
         public void OpenGameplay()
         {
-            Debug.Log("Load gameplay");
+            var enterParams = new GameplayEnterParams();
+            _sceneLoader.LoadAndStartGameplay(enterParams);
         }
     }
 }

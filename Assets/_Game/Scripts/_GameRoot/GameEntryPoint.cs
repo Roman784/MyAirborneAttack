@@ -5,16 +5,8 @@ using Zenject;
 
 namespace GameRoot
 {
-    public class GameEntryPoint : SceneEntryPoint
+    public sealed class GameEntryPoint : SceneEntryPoint
     {
-        private SceneProvider _sceneProvider;
-
-        [Inject]
-        private void Construct(SceneProvider sceneProvider)
-        {
-            _sceneProvider = sceneProvider;
-        }
-
         private void Start()
         {
             var enterParams = new SceneEnterParams(Scenes.BOOT);
