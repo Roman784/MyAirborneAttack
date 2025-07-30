@@ -25,7 +25,7 @@ namespace GameRoot
             LoadScene(enterParams);
         }
 
-        private void LoadScene(SceneEnterParams enterParams)
+        private void LoadScene(SceneEnterParams currentEnterParams)
         {
             Debug.Log("Load gameplay");
         }
