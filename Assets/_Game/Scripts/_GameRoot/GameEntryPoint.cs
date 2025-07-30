@@ -45,7 +45,7 @@ namespace GameRoot
         // Starts the first scene the player will see.
         private void StartGame()
         {
-            _sceneProvider.OpenGameplay();
+            _sceneProvider.OpenGameplay(1);
         }
     }
 }

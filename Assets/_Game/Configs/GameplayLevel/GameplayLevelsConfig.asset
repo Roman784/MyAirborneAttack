@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51020a1b1b0155040b7f5031851fd32c, type: 3}
-  m_Name: GameConfig
+  m_Script: {fileID: 11500000, guid: 899c054a92f522442b55dd42ae63b0f2, type: 3}
+  m_Name: GameplayLevelsConfig
   m_EditorClassIdentifier: 
-  <LevelsConfig>k__BackingField: {fileID: 11400000, guid: 73783142e3e28f5459f6a52501c91314,
-    type: 2}
+  <LevelConfigs>k__BackingField:
+  - {fileID: 11400000, guid: d3c665151c314b14890c6e7bec63e4e0, type: 2}

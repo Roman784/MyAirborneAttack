@@ -10,6 +10,8 @@ namespace GameRoot
         protected SceneProvider _sceneProvider;
         protected IConfigProvider _configProvider;
 
+        protected GameConfig GameConfig => _configProvider.GameConfigs;
+
         [Inject]
         private void Construct(SceneProvider sceneProvider, IConfigProvider configProvider)
         {

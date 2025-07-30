@@ -4,8 +4,11 @@ namespace GameplayRoot
 {
     public class GameplayEnterParams : SceneEnterParams
     {
-        public GameplayEnterParams() : base(Scenes.GAMEPLAY)
+        public readonly int LevelNumber;
+
+        public GameplayEnterParams(int levelNumber) : base(Scenes.GAMEPLAY)
         {
+            LevelNumber = levelNumber;
         }
     }
 }

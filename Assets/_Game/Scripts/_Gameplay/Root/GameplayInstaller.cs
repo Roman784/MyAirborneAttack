@@ -1,3 +1,4 @@
+using GameplayLevel;
 using Zenject;
 
 namespace GameplayRoot
@@ -6,7 +7,12 @@ namespace GameplayRoot
     {
         public override void InstallBindings()
         {
-            
+            BindFactories();
+        }
+
+        private void BindFactories()
+        {
+            Container.Bind<GameplayLevelFactory>().AsSingle();
         }
     }
 }
