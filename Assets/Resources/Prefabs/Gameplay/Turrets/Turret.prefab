@@ -42,6 +42,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3512434788549112316}
   - component: {fileID: 3252098187968867558}
+  - component: {fileID: 178794185496508383}
+  - component: {fileID: 3805411123688546518}
   m_Layer: 0
   m_Name: Turret
   m_TagString: Untagged
@@ -82,6 +84,37 @@ MonoBehaviour:
   _speed: {x: 50, y: 50}
   _maxSpeed: {x: 75, y: 75}
   _barrelClampAngles: {x: -60, y: 30}
+--- !u!114 &178794185496508383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1943939090207089093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1f0d844e9298f341b3e2427529c4672, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _shootingStrategy: {fileID: 3805411123688546518}
+  _projectilePrefab: {fileID: 1133722995384303461, guid: 23bb1abc80eb22f4c962aee6c68b6aaf,
+    type: 3}
+  _fireRate: 10
+  _projectileInitialFlightSpeed: 50
+  _projectileDamage: 1
+--- !u!114 &3805411123688546518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1943939090207089093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a6d46fbaf913e94ca5d18ccbae06d19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _projectileSocket: {fileID: 4236215606465831514}
 --- !u!1 &2673047190111959615
 GameObject:
   m_ObjectHideFlags: 0
@@ -261,7 +294,8 @@ Transform:
   m_LocalPosition: {x: -0.345, y: 0.122, z: 0}
   m_LocalScale: {x: 0.74999994, y: 0.25, z: 0.25}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 4236215606465831514}
   m_Father: {fileID: 3119459852820432689}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5762515693885587481
@@ -397,3 +431,34 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &8590860564925535841
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4236215606465831514}
+  m_Layer: 0
+  m_Name: ProjectileSocket
+  m_TagString: Untagged
+  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4236215606465831514
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8590860564925535841}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.749, y: -0.05, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3499302668721920713}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
