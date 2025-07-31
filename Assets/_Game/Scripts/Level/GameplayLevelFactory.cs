@@ -23,7 +23,7 @@ namespace GameplayLevel
         {
             if (!_levelPrefabsMap.TryGetValue(nameId, out var prefab))
             {
-                prefab = _assetsProvider.Load<GameplayLevel>(ResourcePaths.GAMEPLAY_LEVEL_PREFABS + nameId);
+                prefab = _assetsProvider.Load<GameplayLevel>(AssetPaths.GAMEPLAY_LEVEL_PREFABS + nameId);
                 _levelPrefabsMap[nameId] = prefab;
             }
 
