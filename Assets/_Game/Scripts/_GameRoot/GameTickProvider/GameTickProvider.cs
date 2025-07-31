@@ -15,7 +15,7 @@ namespace GameTick
 
             foreach (var tickable in _tickables)
             {
-                tickable.Tick(deltaTime);
+                tickable?.Tick(deltaTime);
             }
         }
     }

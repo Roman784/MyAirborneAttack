@@ -1,4 +1,6 @@
-using GameplayLevel;
+using Gameplay;
+using System;
+using UnityEngine;
 using Zenject;
 
 namespace GameplayRoot
@@ -8,11 +10,28 @@ namespace GameplayRoot
         public override void InstallBindings()
         {
             BindFactories();
+            BindTurretInput();
         }
 
         private void BindFactories()
         {
             Container.Bind<GameplayLevelFactory>().AsSingle();
+        }
+
+        private void BindTurretInput()
+        {
+            if (SystemInfo.deviceType == DeviceType.Desktop || Application.isEditor)
+            {
+                Container.Bind<ITurretInput>().To<KeyboardTurretInput>().AsTransient();
+            }
+            else if (SystemInfo.deviceType == DeviceType.Handheld)
+            {
+                Container.Bind<ITurretInput>().To<TouchTurretInput>().AsTransient();
+            }
+            else
+            {
+                throw new Exception("Failed to recognize the platform for control input!");
+            }
         }
     }
 }

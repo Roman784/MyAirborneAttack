@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace GameplayLevel
+namespace Gameplay
 {
     public class GameplayLevel : MonoBehaviour
     {

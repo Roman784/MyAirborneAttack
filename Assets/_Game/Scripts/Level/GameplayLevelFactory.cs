@@ -3,7 +3,7 @@ using GameRoot;
 using System.Collections.Generic;
 using Zenject;
 
-namespace GameplayLevel
+namespace Gameplay
 {
     public class GameplayLevelFactory
     {
