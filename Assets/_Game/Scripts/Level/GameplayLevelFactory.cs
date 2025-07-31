@@ -1,7 +1,6 @@
+using Assets;
 using GameRoot;
-using System;
 using System.Collections.Generic;
-using UnityEngine;
 using Zenject;
 
 namespace GameplayLevel
@@ -9,24 +8,22 @@ namespace GameplayLevel
     public class GameplayLevelFactory
     {
         private readonly DiContainer _container;
+        private readonly IAssetsProvider _assetsProvider;
 
         private Dictionary<string, GameplayLevel> _levelPrefabsMap = new();
 
         [Inject]
-        public GameplayLevelFactory(DiContainer container)
+        public GameplayLevelFactory(DiContainer container, IAssetsProvider assetsProvider)
         {
             _container = container;
+            _assetsProvider = assetsProvider;
         }
 
         public GameplayLevel Create(string nameId)
         {
             if (!_levelPrefabsMap.TryGetValue(nameId, out var prefab))
             {
-                prefab = Resources.Load<GameplayLevel>(ResourcePaths.GAMEPLAY_LEVEL_PREFABS + nameId);
-
-                if (prefab == null)
-                    throw new NullReferenceException($"Level prefab '{nameId}' not found!");
-
+                prefab = _assetsProvider.Load<GameplayLevel>(ResourcePaths.GAMEPLAY_LEVEL_PREFABS + nameId);
                 _levelPrefabsMap[nameId] = prefab;
             }
 
