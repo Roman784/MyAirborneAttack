@@ -1,54 +1,81 @@
+using R3;
 using UnityEngine;
+using ITickable = GameTick.ITickable;
 
 namespace Gameplay
 {
-    public class Projectile : MonoBehaviour
+    public abstract class Projectile : ITickable
     {
-        private float _flightTime;
-        private Vector3 _initialPosition;
-        private Vector3 _initialFlightVelocity;
-        private Vector3 _previousPosition;
-        private float _damage;
+        protected const float GRAVITY = -9.8f;
+        private const float LIFESPAN = 3f;
 
-        private float _gravity = -9.8f;
+        protected ProjectileView _view;
 
-        public void Init(Vector3 flightDirection, float initialFlightSpeed, float damage)
+        protected float _flightTime;
+        protected Vector3 _initialPosition;
+        protected ShootingData _shootingData;
+
+        private Subject<RaycastHit> _onHitSignalSubj;
+        private Subject<Unit> _lifeOverSignalSubj;
+
+        public Observable<RaycastHit> OnHitSignal => _onHitSignalSubj;
+        public Observable<Unit> LifeOverSignal => _lifeOverSignalSubj;
+
+        public Projectile(ProjectileView view, ShootingData shootingData)
         {
-            _flightTime = 0f;
-            _initialPosition = transform.position;
-            _initialFlightVelocity = flightDirection.normalized * initialFlightSpeed;
-            _damage = damage;
+            _view = view;
 
-            if (_initialFlightVelocity != Vector3.zero)
-                transform.rotation = Quaternion.LookRotation(_initialFlightVelocity);
+            _initialPosition = _view.Position;
+            _shootingData = shootingData;
 
-            Destroy(gameObject, 3); // TODO: Temp.
+            _onHitSignalSubj = new Subject<RaycastHit>();
+            _lifeOverSignalSubj = new Subject<Unit>();
         }
 
-        private void Update() // TODO: Temp.
+        public void Tick(float deltaTime)
         {
-            _flightTime += Time.deltaTime;
+            _flightTime += deltaTime;
+
+            if (!CheckLifespan()) return;
+            if (CheckCollisions()) return;
 
             Move();
-            Rotate();
+            RotateAccordingMovement();
         }
 
-        private void Move()
-        {
-            var x = _initialPosition.x + _initialFlightVelocity.x * _flightTime;
-            var y = _initialPosition.y + _initialFlightVelocity.y * _flightTime + (_gravity * _flightTime * _flightTime) / 2f;
-            var z = _initialPosition.z + _initialFlightVelocity.z * _flightTime;
+        protected abstract void Move();
 
-            _previousPosition = transform.position;
-            transform.position = new Vector3(x, y, z);
-        }
-
-        private void Rotate()
+        private void RotateAccordingMovement()
         {
-            var flightDirection = transform.position - _previousPosition;
+            var flightDirection = _view.Position - _view.PreviousPosition;
             if (flightDirection == Vector3.zero) return;
 
-            transform.rotation = Quaternion.LookRotation(flightDirection);
+            _view.Rotate(Quaternion.LookRotation(flightDirection));
+        }
+
+        private bool CheckCollisions()
+        {
+            var distanceVector = _view.Position - _view.PreviousPosition;
+            if (Physics.Raycast(_view.PreviousPosition, distanceVector, out RaycastHit hit, _shootingData.TargetLayer))
+            {
+                _onHitSignalSubj.OnNext(hit);
+                _onHitSignalSubj.OnCompleted();
+
+                return true;
+            }
+            return false;
+        }
+
+        private bool CheckLifespan()
+        {
+            if (_flightTime >= LIFESPAN)
+            {
+                _lifeOverSignalSubj.OnNext(Unit.Default);
+                _lifeOverSignalSubj.OnCompleted();
+
+                return false;
+            }
+            return true;
         }
     }
 }

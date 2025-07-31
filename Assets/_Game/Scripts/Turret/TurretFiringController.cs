@@ -11,10 +11,7 @@ namespace Gameplay
 
         [Space]
 
-        [SerializeField] private Projectile _projectilePrefab;
-        [SerializeField] private float _fireRate;
-        [SerializeField] private float _projectileInitialFlightSpeed;
-        [SerializeField] private float _projectileDamage;
+        [SerializeField] private ShootingData _shootingData;
 
         private float _nextTimeToFire;
 
@@ -34,14 +31,15 @@ namespace Gameplay
 
             if (Time.time >= _nextTimeToFire)
             {
-                _nextTimeToFire = Time.time + 1f / _fireRate;
-                _shootingStrategy.Shot(_projectilePrefab, _projectileInitialFlightSpeed, _projectileDamage);
+                _nextTimeToFire = Time.time + 1f / _shootingData.Rate;
+                _shootingStrategy.Shoot(_shootingData);
             }
         }
 
         private void OnDrawGizmos()
         {
-            _shootingStrategy.DrawTrajectory(_projectileInitialFlightSpeed);
+            if (_shootingData.ProjectileType == ProjectileType.Parabolic)
+                ParabolicProjectile.DrawTrajectory(transform, _shootingData.ProjectileFlightSpeed);
         }
     }
 }

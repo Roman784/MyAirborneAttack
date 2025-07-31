@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 8725704967072370803}
   - component: {fileID: 6856483649511780066}
   - component: {fileID: 1679444871481879268}
-  - component: {fileID: 1133722995384303461}
+  - component: {fileID: 2954158392184157082}
   m_Layer: 0
-  m_Name: Projectile_1
+  m_Name: Projectile_player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -84,7 +84,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &1133722995384303461
+--- !u!114 &2954158392184157082
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -93,6 +93,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 3176235180264034084}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 949c4dc52412dcd43b56de4f6d95fec6, type: 3}
+  m_Script: {fileID: 11500000, guid: 4fa207e3e2002e34caf8c7183c54de5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

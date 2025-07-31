@@ -1,10 +1,20 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 namespace Gameplay
 {
     public abstract class Shooting : MonoBehaviour
     {
-        public abstract void Shot(Projectile projectilePrefab, float projectileInitialFlightSpeed, float projectileDamage);
-        public virtual void DrawTrajectory(float initSpeed) { }
+        protected ProjectileFactory _projectileFactory;
+
+        [Inject]
+        private void Construct(ProjectileFactory projectileFactory)
+        {
+            _projectileFactory = projectileFactory;
+        }
+
+        public virtual void Shoot(ShootingData shootingData) { }
     }
 }

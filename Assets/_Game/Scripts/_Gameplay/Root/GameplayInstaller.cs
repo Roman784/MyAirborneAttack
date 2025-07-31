@@ -16,6 +16,7 @@ namespace GameplayRoot
         private void BindFactories()
         {
             Container.Bind<GameplayLevelFactory>().AsSingle();
+            Container.Bind<ProjectileFactory>().AsSingle();
         }
 
         private void BindTurretInput()
