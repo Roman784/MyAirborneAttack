@@ -96,4 +96,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fa207e3e2002e34caf8c7183c54de5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Id>k__BackingField: 1
+  <NameId>k__BackingField: projectile_enemy

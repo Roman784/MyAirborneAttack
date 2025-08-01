@@ -1,11 +1,8 @@
-using GameTick;
 using UnityEngine;
-using Zenject;
-using ITickable = GameTick.ITickable;
 
 namespace Gameplay
 {
-    public class TurretRotationController : MonoBehaviour, ITickable
+    public class TurretRotationController : MonoBehaviour
     {
         [SerializeField] private Transform _rotor;
         [SerializeField] private Transform _barrel;
@@ -18,21 +15,8 @@ namespace Gameplay
 
         private Vector2 _currentRotation;
 
-        private ITurretInput _input;
-
-        [Inject]
-        private void Construct(ITurretInput input, GameTickProvider gameTickProvider)
+        public void Rotate(Vector2 inputAxes, float deltaTime)
         {
-            _input = input;
-
-            gameTickProvider.AddTickable(this);
-        }
-
-        public void Tick(float deltaTime)
-        {
-            if (!_input.IsActive()) return;
-
-            var inputAxes = _input.GetAxes();
             var velocity = ClampVelocity(inputAxes * _speed);
 
             // Horizontal rotation.

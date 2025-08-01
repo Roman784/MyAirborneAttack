@@ -12,9 +12,9 @@ namespace GameRoot
             _sceneLoader = new SceneLoader();
         }
 
-        public void OpenGameplay(int levelNumber)
+        public void OpenGameplay(int levelNumber, string turretId)
         {
-            var enterParams = new GameplayEnterParams(levelNumber);
+            var enterParams = new GameplayEnterParams(levelNumber, turretId);
             _sceneLoader.LoadAndStartGameplay(enterParams);
         }
     }

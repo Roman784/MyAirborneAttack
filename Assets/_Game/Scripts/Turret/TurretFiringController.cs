@@ -1,11 +1,9 @@
-using GameTick;
+using System.Linq;
 using UnityEngine;
-using Zenject;
-using ITickable = GameTick.ITickable;
 
 namespace Gameplay
 {
-    public class TurretFiringController : MonoBehaviour, ITickable
+    public class TurretFiringController : MonoBehaviour
     {
         [SerializeField] private Shooting _shootingStrategy;
 
@@ -13,33 +11,25 @@ namespace Gameplay
 
         [SerializeField] private ShootingData _shootingData;
 
-        private float _nextTimeToFire;
+        private float _nextTimeToShoot;
 
-        private ITurretInput _input;
-
-        [Inject]
-        private void Construct(ITurretInput input, GameTickProvider gameTickProvider)
+        public void TryFire()
         {
-            _input = input;
-
-            gameTickProvider.AddTickable(this);
-        }
-
-        public void Tick(float deltaTime)
-        {
-            if (!_input.IsActive()) return;
-
-            if (Time.time >= _nextTimeToFire)
+            if (Time.time >= _nextTimeToShoot)
             {
-                _nextTimeToFire = Time.time + 1f / _shootingData.Rate;
+                _nextTimeToShoot = Time.time + 1f / _shootingData.Rate;
                 _shootingStrategy.Shoot(_shootingData);
             }
         }
 
+        // Trajectory.
         private void OnDrawGizmos()
         {
+            var socket = GetComponentsInChildren<Transform>(includeInactive: true)
+                .FirstOrDefault(t => t.name == "ProjectileSocket") ?? transform;
+
             if (_shootingData.ProjectileType == ProjectileType.Parabolic)
-                ParabolicProjectile.DrawTrajectory(transform, _shootingData.ProjectileFlightSpeed);
+                ParabolicProjectile.DrawTrajectory(socket, _shootingData.ProjectileFlightSpeed);
         }
     }
 }

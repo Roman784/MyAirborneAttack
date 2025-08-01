@@ -4,6 +4,7 @@ using GameRoot;
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Zenject;
 
 namespace GameplayRoot
@@ -35,7 +36,8 @@ namespace GameplayRoot
             var levelNumber = enterParams.LevelNumber;
             var levelConfig = LevelsConfig.GetLevelConfig(levelNumber);
 
-            _levelFactory.Create(levelConfig.NameId);
+            var level = _levelFactory.Create(levelConfig.NameId);
+            level.CreateTurret(enterParams.TurretId);
 
             isLoaded = true;
 
