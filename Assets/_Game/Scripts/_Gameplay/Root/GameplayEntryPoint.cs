@@ -37,7 +37,8 @@ namespace GameplayRoot
             var levelConfig = LevelsConfig.GetLevelConfig(levelNumber);
 
             var level = _levelFactory.Create(levelConfig.NameId);
-            level.CreateTurret(enterParams.TurretId);
+            level.CreateTurret(enterParams.TurretNameId);
+            level.LoadEnemyPaths(levelConfig.WavesData);
 
             isLoaded = true;
 
