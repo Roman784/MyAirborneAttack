@@ -7,6 +7,7 @@ namespace Gameplay
     public class EnemyPath : MonoBehaviour
     {
         private SplineContainer _path;
+        
         private SplineContainer path
         {
             get { return _path ??= GetComponent<SplineContainer>(); }

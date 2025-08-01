@@ -38,7 +38,8 @@ namespace GameplayRoot
 
             var level = _levelFactory.Create(levelConfig.NameId);
             level.CreateTurret(enterParams.TurretNameId);
-            level.LoadEnemyPaths(levelConfig.WavesData);
+            level.CreateEnemyPaths(levelConfig.WavesData);
+            level.CreateEnemies(levelConfig.WavesData);
 
             isLoaded = true;
 

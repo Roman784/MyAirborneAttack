@@ -12,7 +12,7 @@ namespace Configs
 
         [field: Space]
 
-        [field:SerializeField] public WaveData[] WavesData { get; private set; }
+        [field: SerializeField] public WaveData[] WavesData { get; private set; }
 
         [Serializable]
         public class WaveData
@@ -24,9 +24,11 @@ namespace Configs
         public class EnemySpawnData
         {
             [field: SerializeField] public float TimeSinceWaveStart { get; private set; }
-            [field: SerializeField] public string EnemyNameId { get; private set; }
+            [field: SerializeField] public EnemyConfig EnemyConfig { get; private set; }
             [field: SerializeField] public string PathNameId { get; private set; }
             [field: SerializeField] public float PathHeight { get; private set; }
+
+            public (string, float) PathKey => (PathNameId, PathHeight);
         }
     }
 }

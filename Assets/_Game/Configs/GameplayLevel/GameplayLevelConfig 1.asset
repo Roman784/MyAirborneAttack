@@ -17,11 +17,13 @@ MonoBehaviour:
   <WavesData>k__BackingField:
   - <EnemySpawnSequenceData>k__BackingField:
     - <TimeSinceWaveStart>k__BackingField: 0
-      <EnemyNameId>k__BackingField: 
+      <EnemyConfig>k__BackingField: {fileID: 11400000, guid: 9918ce037be26e84484abed96b08a4ad,
+        type: 2}
       <PathNameId>k__BackingField: EnemyPath_1
-      <PathHeight>k__BackingField: 0
+      <PathHeight>k__BackingField: 2
     - <TimeSinceWaveStart>k__BackingField: 1
-      <EnemyNameId>k__BackingField: 
+      <EnemyConfig>k__BackingField: {fileID: 11400000, guid: 9918ce037be26e84484abed96b08a4ad,
+        type: 2}
       <PathNameId>k__BackingField: EnemyPath_1
-      <PathHeight>k__BackingField: 0
+      <PathHeight>k__BackingField: 5
   - <EnemySpawnSequenceData>k__BackingField: []
