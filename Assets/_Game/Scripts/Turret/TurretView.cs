@@ -5,6 +5,8 @@ namespace Gameplay
 {
     public class TurretView : MonoBehaviour
     {
+        [field: SerializeField] public Transform CameraAnchor { get; private set; }
+
         public T Get<T>() where T : Component
         {
             T component = GetComponent<T>();

@@ -8,6 +8,8 @@ namespace Gameplay
 {
     public class Turret : ITickable, IDisposable
     {
+        private TurretView _view;
+
         private TurretRotationController _rotationController;
         private TurretFiringController _firingController;
 
@@ -25,6 +27,8 @@ namespace Gameplay
 
         public Turret(TurretView view)
         {
+            _view = view;
+
             _rotationController = view.Get<TurretRotationController>();
             _firingController = view.Get<TurretFiringController>();
         }
@@ -37,6 +41,12 @@ namespace Gameplay
             _rotationController.Rotate(inputAxes, deltaTime);
 
             _firingController.TryFire();
+        }
+
+        public void AttachCamera(TrackingCamera camera)
+        {
+            var initialRotation = new Vector2(0, _rotationController.InitialBarrelAngle);
+            camera.Attach(_view.CameraAnchor, _rotationController.AnglesChangedSignal, initialRotation);
         }
 
         public void Dispose()

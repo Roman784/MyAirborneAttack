@@ -12,12 +12,13 @@ namespace Gameplay
         {
         }
 
-        public Turret Create(string nameId, Vector3 position)
+        public Turret Create(string nameId, Vector3 position, Quaternion rotation)
         {
             var prefab = LoadPrefab<TurretView>(AssetPaths.GAMEPLAY_TURRET_PREFABS + nameId);
             
             var view = _container.InstantiatePrefabForComponent<TurretView>(prefab);
             view.transform.position = position;
+            view.transform.rotation = rotation;
 
             var turret = _container.Instantiate<Turret>(new object[] { view });
 

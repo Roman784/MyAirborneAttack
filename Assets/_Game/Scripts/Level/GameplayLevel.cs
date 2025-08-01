@@ -9,7 +9,8 @@ namespace Gameplay
 {
     public class GameplayLevel : MonoBehaviour
     {
-        [SerializeField] private Transform _turretPoint;
+        [SerializeField] private TrackingCamera _camera;
+        [SerializeField] private Transform _turretAnchor;
 
         private Dictionary<(string, float), EnemyPath> _enemyPathsMap = new();
         private Dictionary<string, Stack<Enemy>> _enemiesMap = new();
@@ -29,7 +30,10 @@ namespace Gameplay
 
         public Turret CreateTurret(string nameId)
         {
-            return _turretFactory.Create(nameId, _turretPoint.position);
+            var turret = _turretFactory.Create(nameId, _turretAnchor.position, _turretAnchor.rotation);
+            turret.AttachCamera(_camera);
+            
+            return turret;
         }
 
         public void CreateEnemyPaths(WaveData[] wavesData)
@@ -65,8 +69,8 @@ namespace Gameplay
                     if (!_enemiesMap.TryGetValue(nameId, out var enemies))
                         enemies = new Stack<Enemy>();
 
-                    var newEnemy = _enemyFactory.Create(enemyConfig, path);
-                    enemies.Push(newEnemy);
+                    var enemy = _enemyFactory.Create(enemyConfig, path);
+                    enemies.Push(enemy);
                 }
             }
         }
