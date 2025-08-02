@@ -1,5 +1,6 @@
 using Gameplay;
 using System;
+using UI;
 using UnityEngine;
 using Zenject;
 
@@ -7,14 +8,18 @@ namespace GameplayRoot
 {
     public sealed class GameplayInstaller : MonoInstaller
     {
+        [SerializeField] private PopUp _defaultPopUp;
+
         public override void InstallBindings()
         {
             BindFactories();
             BindTurretInput();
+            BindPopUps();
         }
 
         private void BindFactories()
         {
+            Container.Bind<SceneUIFactory>().AsSingle();
             Container.Bind<GameplayLevelFactory>().AsSingle();
             Container.Bind<ProjectileFactory>().AsSingle();
             Container.Bind<TurretFactory>().AsSingle();
@@ -35,6 +40,13 @@ namespace GameplayRoot
             {
                 throw new Exception("Failed to recognize the platform for control input!");
             }
+        }
+
+        private void BindPopUps()
+        {
+            Container.Bind<GameplayPopUpProvider>().AsTransient();
+
+            Container.BindFactory<PopUp, PopUp.Factory>().FromComponentInNewPrefab(_defaultPopUp);
         }
     }
 }

@@ -9,6 +9,8 @@ namespace UI
         [SerializeField] private Transform _sceneUIContainer;
         [SerializeField] private LoadingScreen _loadingScreen;
 
+        [field: SerializeField] public PopUpsRoot PopUpsRoot;
+
         public IEnumerator ShowLoadingScreen()
         {
             yield return SetLoadingScreen(true);
@@ -27,6 +29,7 @@ namespace UI
         public void ClearAllContainers()
         {
             ClearContainer(_sceneUIContainer);
+            PopUpsRoot.DestroyAllPopUps();
         }
 
         private void ClearContainer(Transform container)
