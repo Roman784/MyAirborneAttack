@@ -9,7 +9,8 @@ namespace GameRoot
 {
     public class SceneLoader
     {
-        private UIRoot _uiRoot;
+        private readonly UIRoot _uiRoot;
+
         private Coroutine _loading;
 
         public SceneLoader(UIRoot uiRoot)
@@ -28,10 +29,15 @@ namespace GameRoot
             where TEntryPoint : SceneEntryPoint
             where TEnterParams : SceneEnterParams
         {
+            yield return _uiRoot.ShowLoadingScreen();
+            _uiRoot.ClearAllContainers();
+
             yield return LoadScene(sceneName);
 
             var sceneEntryPoint = Object.FindObjectOfType<TEntryPoint>();
             yield return sceneEntryPoint.Run(enterParams);
+
+            yield return _uiRoot.HideLoadingScreen();
         }
 
         private IEnumerator LoadScene(string sceneName)
