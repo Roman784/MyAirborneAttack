@@ -6,6 +6,7 @@ using System.Collections;
 using UI;
 using UnityEngine;
 using Zenject;
+using R3;
 
 namespace GameplayRoot
 {
@@ -35,16 +36,23 @@ namespace GameplayRoot
         {
             var isLoaded = false;
 
+            // Data.
             var levelNumber = enterParams.LevelNumber;
             var levelConfig = LevelsConfig.GetLevelConfig(levelNumber);
 
+            // Level setup.
             var level = _levelFactory.Create(levelConfig);
             var turret = level.CreateTurret(enterParams.TurretNameId);
             level.PrepareEnemies(turret);
+            var startWaveSignal = level.PrepareWaves();
 
+            // UI.
             var ui = _uiFactory.Create(_gameplayUIPrefab);
+            startWaveSignal.Subscribe(e => ui.ShowWaveProgress(e.Item1, e.Item2));
 
-            level.StartWaves();
+            // Start gameplay.
+            Observable.Timer(TimeSpan.FromSeconds(1))
+                .Subscribe(_ => level.StartWaves());
 
             isLoaded = true;
 

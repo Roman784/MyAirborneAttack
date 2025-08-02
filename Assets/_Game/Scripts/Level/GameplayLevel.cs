@@ -1,4 +1,5 @@
 using GameTick;
+using R3;
 using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
@@ -64,10 +65,17 @@ namespace Gameplay
             }
         }
 
-        public void StartWaves()
+        public Observable<(int, int)> PrepareWaves()
         {
             _wavesPassingService = new WavesPassingService(_wavesData, _enemiesMap);
             _gameTickProvider.AddTickable(_wavesPassingService);
+
+            return _wavesPassingService.WaveStartSignal;
+        }
+
+        public void StartWaves()
+        {
+            _wavesPassingService.StartWaves();
         }
 
         private void OnDestroy()

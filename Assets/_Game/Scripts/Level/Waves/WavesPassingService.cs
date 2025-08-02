@@ -11,12 +11,16 @@ namespace Gameplay
         private readonly Dictionary<(string, EnemyPath), Stack<Enemy>> _enemiesMap;
 
         private int _waveIdx;
+        private int _totalWaves;
         private float _waveTime;
         private bool[] _completedSpawns;
         private bool _areAllWavesOver;
 
         private List<Enemy> _spawnedEnemies = new();
 
+        private Subject<(int, int)> _waveStartSignalSubj = new(); // <(current wave, total waves)>
+
+        public Observable<(int, int)> WaveStartSignal => _waveStartSignalSubj;
         private WaveData CurrentWave => _wavesData[_waveIdx];
 
         public WavesPassingService(IEnumerable<WaveData> wavesData, 
@@ -26,12 +30,17 @@ namespace Gameplay
             _enemiesMap = new Dictionary<(string, EnemyPath), Stack<Enemy>>(enemiesMap);
 
             _waveIdx = -1;
+            _totalWaves = _wavesData.Length;
+        }
+
+        public void StartWaves()
+        {
             StartNextWave();
         }
 
         public void Tick(float deltaTime)
         {
-            if (_areAllWavesOver) return;
+            if (_areAllWavesOver || _waveIdx < 0) return;
 
             _waveTime += deltaTime;
 
@@ -60,6 +69,8 @@ namespace Gameplay
                 _waveIdx += 1;
                 _completedSpawns = new bool[CurrentWave.SpawnSequenceData.Length];
                 _spawnedEnemies = new List<Enemy>();
+
+                _waveStartSignalSubj.OnNext((_waveIdx + 1, _totalWaves));
             }
             else
             {
