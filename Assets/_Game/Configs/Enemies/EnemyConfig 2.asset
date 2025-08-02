@@ -15,3 +15,15 @@ MonoBehaviour:
   <NameId>k__BackingField: Enemy_2
   <PathPassingRate>k__BackingField: 0.1
   <Health>k__BackingField: 10
+  <CanShoot>k__BackingField: 1
+  <ShootingData>k__BackingField:
+    <ProjectileViewPrefab>k__BackingField: {fileID: 2954158392184157082, guid: c9dcf7310cefdaa449869d74221200fa,
+      type: 3}
+    <ProjectileType>k__BackingField: 2
+    <Rate>k__BackingField: 1
+    <ProjectileFlightSpeed>k__BackingField: 10
+    <Damage>k__BackingField: 1
+    <TargetLayer>k__BackingField:
+      serializedVersion: 2
+      m_Bits: 128
+    <VisibilityRange>k__BackingField: 30

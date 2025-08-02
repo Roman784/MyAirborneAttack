@@ -17,7 +17,7 @@ namespace Gameplay
             var capacity = 50;
             var points = new Vector3[capacity];
             var initPos = socket.position;
-            var initVel = -socket.transform.right * initSpeed;
+            var initVel = socket.forward * initSpeed;
 
             for (int i = 0; i < capacity; i++)
             {

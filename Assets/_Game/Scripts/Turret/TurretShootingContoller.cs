@@ -6,7 +6,7 @@ namespace Gameplay
 {
     public class TurretShootingContoller : MonoBehaviour
     {
-        [SerializeField] protected ShootingData _shootingData;
+        [SerializeField] private ShootingData _shootingData;
 
         private Shooting _shooting;
 
@@ -23,19 +23,6 @@ namespace Gameplay
         public void Shoot()
         {
             _shooting.TryShoot();
-        }
-
-        // Trajectory.
-        private void OnDrawGizmos()
-        {
-            var socket = GetComponentsInChildren<Transform>(includeInactive: true)
-                .FirstOrDefault(t => t.name == "ProjectileSocket") ?? transform;
-
-            if (_shootingData.ProjectileType == ProjectileType.Parabolic)
-                ParabolicProjectile.DrawTrajectory(socket, _shootingData.ProjectileFlightSpeed);
-
-            else if (_shootingData.ProjectileType == ProjectileType.Straight)
-                StraightProjectile.DrawTrajectory(socket, _shootingData.ProjectileFlightSpeed);
         }
     }
 }

@@ -1,3 +1,4 @@
+using Gameplay;
 using UnityEngine;
 
 namespace Configs
@@ -8,5 +9,10 @@ namespace Configs
         [field: SerializeField] public string NameId { get; private set; }
         [field: SerializeField] public float PathPassingRate { get; private set; }
         [field: SerializeField] public float Health { get; private set; }
+
+        [field: Space]
+
+        [field: SerializeField] public bool CanShoot { get; private set; }
+        [field: SerializeField] public EnemyShootingData ShootingData { get; private set; }
     }
 }

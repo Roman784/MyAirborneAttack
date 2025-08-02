@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,6 +9,16 @@ namespace Gameplay
         [SerializeField] private DamageReceiver[] _damageRecipients;
 
         public IEnumerable<DamageReceiver> DamageRecipients => _damageRecipients;
+
+        public T Get<T>() where T : Component
+        {
+            T component = GetComponent<T>();
+
+            if (component == null)
+                throw new ArgumentNullException($"Failed to get {typeof(T)}!");
+
+            return component;
+        }
 
         public void Enable()
         {

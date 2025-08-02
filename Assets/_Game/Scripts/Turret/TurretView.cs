@@ -8,6 +8,8 @@ namespace Gameplay
         [field: SerializeField] public Transform CameraAnchor { get; private set; }
         [field: SerializeField] public DamageReceiver DamageReceiver { get; private set; }
 
+        public Vector3 Position => transform.position;
+
         public T Get<T>() where T : Component
         {
             T component = GetComponent<T>();

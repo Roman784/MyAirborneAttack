@@ -14,7 +14,7 @@ namespace Gameplay
         {
         }
 
-        public Enemy Create(EnemyConfig config, EnemyPath path)
+        public Enemy Create(EnemyConfig config, EnemyPath path, Turret turret)
         {
             var nameId = config.NameId;
             var prefab = LoadPrefab<EnemyView>(AssetPaths.GAMEPLAY_ENEMY_PREFABS + nameId);
@@ -22,7 +22,7 @@ namespace Gameplay
             var view = _container.InstantiatePrefabForComponent<EnemyView>(prefab);
             view.transform.position = path.EvaluatePosition(0f);
 
-            var enemy = _container.Instantiate<Enemy>(new object[] { view, config, path });
+            var enemy = _container.Instantiate<Enemy>(new object[] { view, config, path, turret });
 
             _disposables.Add(enemy);
             enemy.OnDeathSignal.Subscribe(_ => _disposables.Remove(enemy));

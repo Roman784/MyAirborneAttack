@@ -39,7 +39,7 @@ namespace Gameplay
         }
 
         // Creates all enemies for this level and disables their.
-        public void PrepareEnemies()
+        public void PrepareEnemies(Turret turret)
         {
             foreach (var wave in _wavesData)
             {
@@ -56,7 +56,7 @@ namespace Gameplay
                         _enemiesMap[key] = enemies;
                     }
 
-                    var enemy = _enemyFactory.Create(config, path);
+                    var enemy = _enemyFactory.Create(config, path, turret);
                     enemy.Disable();
 
                     enemies.Push(enemy);

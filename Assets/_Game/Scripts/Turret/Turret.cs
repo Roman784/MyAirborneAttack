@@ -9,7 +9,7 @@ namespace Gameplay
 {
     public class Turret : ITickable, IDisposable
     {
-        private const float MAX_HEALTH = 100;
+        private const float MAX_HEALTH = 10;
 
         private TurretView _view;
         private Health _health;
@@ -20,6 +20,8 @@ namespace Gameplay
         private ITurretInput _input;
         private GameTickProvider _tickProvider;
 
+        public Transform Transform => _view.transform;
+        public Vector3 Position => _view.Position;
         public Observable<Unit> OnDeathSignal => _health.OnDeathSignal;
 
         [Inject]

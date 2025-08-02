@@ -10,12 +10,14 @@ namespace Gameplay
 {
     public class Enemy : IDisposable, ITickable
     {
-        private EnemyView _view;
-        private Health _health;
+        private readonly EnemyView _view;
+        private readonly Health _health;
 
         private EnemyPath _path;
         private float _pathPassingRate;
         private float _pathPassingProgress;
+
+        private EnemyShooting _shooting;
 
         private bool _isEnabled = true;
 
@@ -30,7 +32,7 @@ namespace Gameplay
             _tickProvider.AddTickable(this);
         }
 
-        public Enemy(EnemyView view, EnemyConfig config, EnemyPath path)
+        public Enemy(EnemyView view, EnemyConfig config, EnemyPath path, Turret turret)
         {
             _view = view;
             _health = new Health(config.Health);
@@ -41,6 +43,11 @@ namespace Gameplay
 
             _path = path;
             _pathPassingRate = config.PathPassingRate;
+
+            if (config.CanShoot)
+            {
+                _shooting = _view.Get<EnemyShooting>().Init(config.ShootingData, turret);
+            }
         }
 
         public void Enable()
@@ -60,6 +67,7 @@ namespace Gameplay
             if (!_isEnabled) return;
 
             MoveAlongPath(deltaTime);
+            _shooting?.Shoot();
         }
 
         public void Dispose()
