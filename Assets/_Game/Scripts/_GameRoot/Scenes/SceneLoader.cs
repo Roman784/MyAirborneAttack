@@ -1,5 +1,6 @@
 ﻿using GameplayRoot;
 using System.Collections;
+using UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Utils;
@@ -8,7 +9,13 @@ namespace GameRoot
 {
     public class SceneLoader
     {
+        private UIRoot _uiRoot;
         private Coroutine _loading;
+
+        public SceneLoader(UIRoot uiRoot)
+        {
+            _uiRoot = uiRoot;
+        }
 
         public void LoadAndStartGameplay(GameplayEnterParams enterParams)
         {

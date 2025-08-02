@@ -1,5 +1,7 @@
 using GameplayRoot;
+using UI;
 using UnityEngine;
+using Zenject;
 
 namespace GameRoot
 {
@@ -7,9 +9,10 @@ namespace GameRoot
     { 
         private readonly SceneLoader _sceneLoader;
 
-        public SceneProvider()
+        [Inject]
+        public SceneProvider(UIRoot uiRoot)
         {
-            _sceneLoader = new SceneLoader();
+            _sceneLoader = new SceneLoader(uiRoot);
         }
 
         public void OpenGameplay(int levelNumber, string turretNameId)
