@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <NameId>k__BackingField: Level_1
   <Number>k__BackingField: 1
+  <ViewNameId>k__BackingField: LevelView_1
   <WavesData>k__BackingField:
   - <EnemySpawnSequenceData>k__BackingField:
     - <TimeSinceWaveStart>k__BackingField: 0

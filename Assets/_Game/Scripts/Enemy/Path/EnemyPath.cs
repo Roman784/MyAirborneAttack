@@ -7,16 +7,16 @@ namespace Gameplay
     public class EnemyPath : MonoBehaviour
     {
         private SplineContainer _path;
-        
-        private SplineContainer path
+
+        private void Awake()
         {
-            get { return _path ??= GetComponent<SplineContainer>(); }
+            _path = GetComponent<SplineContainer>();
         }
 
-        public bool IsClosed => path.Splines[0].Closed;
+        public bool IsClosed => _path.Splines[0].Closed;
 
-        public Vector3 EvaluatePosition(float progress) => path.EvaluatePosition(progress);
-        public Vector3 EvaluateTangent(float progress) => path.EvaluateTangent(progress);
-        public Vector3 EvaluateUpVector(float progress) => path.EvaluateUpVector(progress);
+        public Vector3 EvaluatePosition(float progress) => _path.EvaluatePosition(progress);
+        public Vector3 EvaluateTangent(float progress) => _path.EvaluateTangent(progress);
+        public Vector3 EvaluateUpVector(float progress) => _path.EvaluateUpVector(progress);
     }
 }

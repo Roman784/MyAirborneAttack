@@ -1,78 +1,66 @@
-using Assets;
-using GameRoot;
 using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
-using WaveData = Configs.GameplayLevelConfig.WaveData;
 
 namespace Gameplay
 {
     public class GameplayLevel : MonoBehaviour
     {
-        [SerializeField] private TrackingCamera _camera;
-        [SerializeField] private Transform _turretAnchor;
+        [SerializeField] private WaveData[] _wavesData;
 
-        private Dictionary<(string, float), EnemyPath> _enemyPathsMap = new();
+        private GameplayLevelView _view;
+
         private Dictionary<string, Stack<Enemy>> _enemiesMap = new();
 
-        private IAssetsProvider _assetsProvider;
         private TurretFactory _turretFactory;
         private EnemyFactory _enemyFactory;
 
         [Inject]
-        private void Construct(IAssetsProvider assetsProvider, 
-                               TurretFactory turretFactory, EnemyFactory enemyFactory)
+        private void Construct(TurretFactory turretFactory, EnemyFactory enemyFactory,
+                               GameplayLevelView view)
         {
-            _assetsProvider = assetsProvider;
+            _view = view;
+
             _turretFactory = turretFactory;
             _enemyFactory = enemyFactory;
         }
 
         public Turret CreateTurret(string nameId)
         {
-            var turret = _turretFactory.Create(nameId, _turretAnchor.position, _turretAnchor.rotation);
-            turret.AttachCamera(_camera);
+            var turret = _turretFactory.Create(nameId, _view.TurretAnchor);
+            turret.AttachCamera(_view.Camera);
             
             return turret;
         }
 
-        public void CreateEnemyPaths(WaveData[] wavesData)
+        // Creates all enemies for this level and disables their.
+        public void PrepareEnemies()
         {
-            foreach (var wave in wavesData)
+            foreach (var wave in _wavesData)
             {
-                foreach (var enemySpawnData in wave.EnemySpawnSequenceData)
+                foreach (var spawnData in wave.SpawnSequenceData)
                 {
-                    var nameId = enemySpawnData.PathNameId;
-                    var height = enemySpawnData.PathHeight;
-                    var key = enemySpawnData.PathKey;
-
-                    if (_enemyPathsMap.ContainsKey(key)) continue;
-
-                    var pathPrefab = _assetsProvider.Load<EnemyPath>(AssetPaths.GAMEPLAY_ENEMY_PATHS_PREFABS + nameId);
-                    var path = Instantiate(pathPrefab, new Vector3(0f, height, 0f), Quaternion.identity);
-
-                    _enemyPathsMap[key] = path;
-                }
-            }
-        }
-
-        public void CreateEnemies(WaveData[] wavesData)
-        {
-            foreach (var wave in wavesData)
-            {
-                foreach (var enemySpawnData in wave.EnemySpawnSequenceData)
-                {
-                    var enemyConfig = enemySpawnData.EnemyConfig;
-                    var nameId = enemyConfig.NameId;
-                    var path = _enemyPathsMap[enemySpawnData.PathKey];
+                    var config = spawnData.EnemyConfig;
+                    var nameId = config.NameId;
+                    var path = spawnData.EnemyPath;
 
                     if (!_enemiesMap.TryGetValue(nameId, out var enemies))
                         enemies = new Stack<Enemy>();
 
-                    var enemy = _enemyFactory.Create(enemyConfig, path);
+                    var enemy = _enemyFactory.Create(config, path);
+                    enemy.Disable();
+
                     enemies.Push(enemy);
                 }
             }
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.red;
+
+            // Probable turret position.
+            Gizmos.DrawSphere(Vector3.zero, 1);
         }
     }
 }

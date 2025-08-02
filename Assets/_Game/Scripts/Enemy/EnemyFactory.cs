@@ -20,6 +20,8 @@ namespace Gameplay
             var prefab = LoadPrefab<EnemyView>(AssetPaths.GAMEPLAY_ENEMY_PREFABS + nameId);
 
             var view = _container.InstantiatePrefabForComponent<EnemyView>(prefab);
+            view.transform.position = path.EvaluatePosition(0f);
+
             var enemy = _container.Instantiate<Enemy>(new object[] { view, config, path });
 
             _disposables.Add(enemy);

@@ -17,6 +17,8 @@ namespace Gameplay
         private float _pathPassingRate;
         private float _pathPassingProgress;
 
+        private bool _isEnabled = true;
+
         private GameTickProvider _tickProvider;
 
         public Observable<Unit> OnDeathSignal => _health.OnDeathSignal;
@@ -41,8 +43,22 @@ namespace Gameplay
             _pathPassingRate = config.PathPassingRate;
         }
 
+        public void Enable()
+        {
+            _isEnabled = true;
+            _view.Enable();
+        }
+
+        public void Disable()
+        {
+            _isEnabled = false;
+            _view.Disable();
+        }
+
         public void Tick(float deltaTime)
         {
+            if (!_isEnabled) return;
+
             MoveAlongPath(deltaTime);
         }
 

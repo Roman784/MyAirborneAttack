@@ -1,5 +1,7 @@
 using Assets;
+using Configs;
 using GameRoot;
+using UnityEngine;
 using Zenject;
 
 namespace Gameplay
@@ -11,10 +13,20 @@ namespace Gameplay
         {
         }
 
-        public GameplayLevel Create(string nameId)
+        public GameplayLevel Create(GameplayLevelConfig config)
         {
-            var prefab = LoadPrefab<GameplayLevel>(AssetPaths.GAMEPLAY_LEVEL_PREFABS + nameId);
-            return _container.InstantiatePrefabForComponent<GameplayLevel>(prefab);
+            var levelNameId = config.NameId;
+            var viewNameId = config.ViewNameId;
+
+            var levelPrefab = LoadPrefab<GameplayLevel>(AssetPaths.GAMEPLAY_LEVEL_PREFABS + levelNameId);
+            var viewPrefab = LoadPrefab<GameplayLevelView>(AssetPaths.GAMEPLAY_LEVEL_VIEW_PREFABS + viewNameId);
+
+            var view = Object.Instantiate(viewPrefab);
+            var level = _container.InstantiatePrefabForComponent<GameplayLevel>(levelPrefab, new object[] { view });
+
+            view.transform.SetParent(level.transform, false);
+
+            return level;
         }
     }
 }
