@@ -3,14 +3,16 @@ using Gameplay;
 using GameRoot;
 using System;
 using System.Collections;
+using UI;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using Zenject;
 
 namespace GameplayRoot
 {
     public sealed class GameplayEntryPoint : SceneEntryPoint
     {
+        [SerializeField] private GameplayUI _gameplayUIPrefab;
+
         private GameplayLevelFactory _levelFactory;
 
         private GameplayLevelsConfig LevelsConfig => GameConfig.LevelsConfig;
@@ -39,6 +41,8 @@ namespace GameplayRoot
             var level = _levelFactory.Create(levelConfig);
             var turret = level.CreateTurret(enterParams.TurretNameId);
             level.PrepareEnemies(turret);
+
+            var ui = _uiFactory.Create(_gameplayUIPrefab);
 
             level.StartWaves();
 
