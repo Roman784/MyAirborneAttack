@@ -1,12 +1,15 @@
+using System.Linq;
 using UnityEngine;
 
 namespace Gameplay
 {
     public class SingleShotShooting : Shooting
     {
+        [Space]
+
         [SerializeField] private Transform _projectileSocket; // Point of projectile exit.
 
-        public override void Shoot(ShootingData shootingData)
+        protected override void Shoot(ShootingData shootingData)
         {
             var projectileFlightDirection = -_projectileSocket.transform.right;
 

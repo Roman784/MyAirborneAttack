@@ -15,7 +15,7 @@ namespace Gameplay
         private Health _health;
 
         private TurretRotationController _rotationController;
-        private TurretFiringController _firingController;
+        private TurretShootingContoller _shootingContoller;
 
         private ITurretInput _input;
         private GameTickProvider _tickProvider;
@@ -41,7 +41,7 @@ namespace Gameplay
             _health.OnDeathSignal.Subscribe(_ => OnDeath());
 
             _rotationController = view.Get<TurretRotationController>();
-            _firingController = view.Get<TurretFiringController>();
+            _shootingContoller = view.Get<TurretShootingContoller>();
         }
 
         public void Tick(float deltaTime)
@@ -51,7 +51,7 @@ namespace Gameplay
             var inputAxes = _input.GetAxes();
             _rotationController.Rotate(inputAxes, deltaTime);
 
-            _firingController.TryFire();
+            _shootingContoller.Shoot();
         }
 
         public void AttachCamera(TrackingCamera camera)

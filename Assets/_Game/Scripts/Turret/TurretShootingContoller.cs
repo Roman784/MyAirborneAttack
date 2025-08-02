@@ -1,25 +1,28 @@
+using System;
 using System.Linq;
 using UnityEngine;
 
 namespace Gameplay
 {
-    public class TurretFiringController : MonoBehaviour
+    public class TurretShootingContoller : MonoBehaviour
     {
-        [SerializeField] private Shooting _shootingStrategy;
+        [SerializeField] protected ShootingData _shootingData;
 
-        [Space]
+        private Shooting _shooting;
 
-        [SerializeField] private ShootingData _shootingData;
-
-        private float _nextTimeToShoot;
-
-        public void TryFire()
+        private void Awake()
         {
-            if (Time.time >= _nextTimeToShoot)
-            {
-                _nextTimeToShoot = Time.time + 1f / _shootingData.Rate;
-                _shootingStrategy.Shoot(_shootingData);
-            }
+            _shooting = GetComponent<Shooting>();
+
+            if (_shooting == null)
+                throw new NullReferenceException("Shooting component not found!");
+
+            _shooting.Init(_shootingData);
+        }
+
+        public void Shoot()
+        {
+            _shooting.TryShoot();
         }
 
         // Trajectory.
