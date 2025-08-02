@@ -6,7 +6,6 @@ namespace Gameplay
 {
     public abstract class Projectile : ITickable
     {
-        protected const float GRAVITY = -9.8f;
         private const float LIFESPAN = 3f;
 
         protected ProjectileView _view;
@@ -14,6 +13,7 @@ namespace Gameplay
         protected float _flightTime;
         protected Vector3 _initialPosition;
         protected ShootingData _shootingData;
+        protected float _gravity;
 
         private Subject<RaycastHit> _onHitSignalSubj;
         private Subject<Unit> _lifeOverSignalSubj;
@@ -21,12 +21,13 @@ namespace Gameplay
         public Observable<RaycastHit> OnHitSignal => _onHitSignalSubj;
         public Observable<Unit> LifeOverSignal => _lifeOverSignalSubj;
 
-        public Projectile(ProjectileView view, ShootingData shootingData)
+        public Projectile(ProjectileView view, ShootingData shootingData, float gravity)
         {
             _view = view;
 
             _initialPosition = _view.Position;
             _shootingData = shootingData;
+            _gravity = gravity;
 
             _onHitSignalSubj = new Subject<RaycastHit>();
             _lifeOverSignalSubj = new Subject<Unit>();

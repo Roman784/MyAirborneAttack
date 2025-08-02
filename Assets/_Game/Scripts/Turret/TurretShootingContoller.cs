@@ -33,6 +33,9 @@ namespace Gameplay
 
             if (_shootingData.ProjectileType == ProjectileType.Parabolic)
                 ParabolicProjectile.DrawTrajectory(socket, _shootingData.ProjectileFlightSpeed);
+
+            else if (_shootingData.ProjectileType == ProjectileType.Straight)
+                StraightProjectile.DrawTrajectory(socket, _shootingData.ProjectileFlightSpeed);
         }
     }
 }

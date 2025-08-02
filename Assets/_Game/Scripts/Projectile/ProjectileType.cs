@@ -4,5 +4,6 @@ namespace Gameplay
     {
         None = 0,
         Parabolic = 1,
+        Straight = 2,
     }
 }

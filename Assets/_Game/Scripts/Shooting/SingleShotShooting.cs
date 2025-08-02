@@ -13,8 +13,15 @@ namespace Gameplay
         {
             var projectileFlightDirection = -_projectileSocket.transform.right;
 
-            if (shootingData.ProjectileType == ProjectileType.Parabolic)
-                _projectileFactory.CreateParabolic(shootingData, _projectileSocket.position, projectileFlightDirection);
+            switch (shootingData.ProjectileType)
+            {
+                case ProjectileType.Parabolic:
+                    _projectileFactory.CreateParabolic(shootingData, _projectileSocket.position, projectileFlightDirection);
+                    break;
+                case ProjectileType.Straight:
+                    _projectileFactory.CreateStraight(shootingData, _projectileSocket.position, projectileFlightDirection);
+                    break;
+            }
         }
     }
 }

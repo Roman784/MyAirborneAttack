@@ -10,6 +10,8 @@ namespace Gameplay
 {
     public class ProjectileFactory
     {
+        private const float GRAVITY = -9.81f;
+
         private readonly GameTickProvider _gameTickProvider;
         
         private Dictionary<string, ObjectPool<ProjectileView>> _viewsMap = new();
@@ -24,7 +26,18 @@ namespace Gameplay
         {
             var viewPrefab = shootingData.ProjectileViewPrefab;
             var view = CreateView(viewPrefab, position);
-            var projectile = new ParabolicProjectile(view, shootingData, flightDirection);
+            var projectile = new ParabolicProjectile(view, shootingData, GRAVITY, flightDirection);
+
+            SetLifespan(projectile, view, _viewsMap[viewPrefab.NameId]);
+
+            return projectile;
+        }
+
+        public StraightProjectile CreateStraight(ShootingData shootingData, Vector3 position, Vector3 flightDirection)
+        {
+            var viewPrefab = shootingData.ProjectileViewPrefab;
+            var view = CreateView(viewPrefab, position);
+            var projectile = new StraightProjectile(view, shootingData, flightDirection);
 
             SetLifespan(projectile, view, _viewsMap[viewPrefab.NameId]);
 
