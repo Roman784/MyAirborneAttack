@@ -28,7 +28,7 @@ namespace Gameplay
 
         private void Rotate(Vector2 angles)
         {
-            //angles.y += _horizontalRotationOffset;
+            angles.y += _horizontalRotationOffset;
             transform.rotation = Quaternion.Euler(angles.y, angles.x, 0f);
         }
     }

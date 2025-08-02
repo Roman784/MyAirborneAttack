@@ -53,7 +53,10 @@ namespace Gameplay
 
         private void MoveAlongPath(float deltaTime)
         {
-            _pathPassingProgress = Mathf.Repeat(_pathPassingProgress + deltaTime * _pathPassingRate, 1f);
+            _pathPassingProgress += deltaTime * _pathPassingRate;
+            
+            if (_path.IsClosed)
+                _pathPassingProgress = Mathf.Repeat(_pathPassingProgress, 1f);
 
             var position = _path.EvaluatePosition(_pathPassingProgress);
             var tangent = _path.EvaluateTangent(_pathPassingProgress);

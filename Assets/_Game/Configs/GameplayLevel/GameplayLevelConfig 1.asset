@@ -24,6 +24,6 @@ MonoBehaviour:
     - <TimeSinceWaveStart>k__BackingField: 1
       <EnemyConfig>k__BackingField: {fileID: 11400000, guid: 9918ce037be26e84484abed96b08a4ad,
         type: 2}
-      <PathNameId>k__BackingField: EnemyPath_1
-      <PathHeight>k__BackingField: 100
+      <PathNameId>k__BackingField: EnemyPath_2
+      <PathHeight>k__BackingField: 10
   - <EnemySpawnSequenceData>k__BackingField: []
