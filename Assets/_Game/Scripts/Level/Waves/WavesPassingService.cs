@@ -76,7 +76,7 @@ namespace Gameplay
             _spawnedEnemies.Add(enemy);
             enemy.OnDeathSignal.Subscribe(_ => _spawnedEnemies.Remove(enemy));
 
-            enemy.Enable();
+            enemy.Enable(true);
         }
 
         private bool IsWavePassed()

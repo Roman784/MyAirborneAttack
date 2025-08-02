@@ -7,7 +7,7 @@ using R3;
 
 namespace Gameplay
 {
-    public class EnemyFactory : Factory, IDisposable
+    public class EnemyFactory : Factory
     {
         public EnemyFactory(DiContainer container, IAssetsProvider assetsProvider) 
             : base(container, assetsProvider)
@@ -17,15 +17,10 @@ namespace Gameplay
         public Enemy Create(EnemyConfig config, EnemyPath path, Turret turret)
         {
             var nameId = config.NameId;
-            var prefab = LoadPrefab<EnemyView>(AssetPaths.GAMEPLAY_ENEMY_PREFABS + nameId);
+            var prefab = LoadPrefab<Enemy>(AssetPaths.GAMEPLAY_ENEMY_PREFABS + nameId);
 
-            var view = _container.InstantiatePrefabForComponent<EnemyView>(prefab);
-            view.transform.position = path.EvaluatePosition(0f);
-
-            var enemy = _container.Instantiate<Enemy>(new object[] { view, config, path, turret });
-
-            _disposables.Add(enemy);
-            enemy.OnDeathSignal.Subscribe(_ => _disposables.Remove(enemy));
+            var enemy = _container.InstantiatePrefabForComponent<Enemy>(prefab)
+                .Init(config, path, turret);
 
             return enemy;
         }

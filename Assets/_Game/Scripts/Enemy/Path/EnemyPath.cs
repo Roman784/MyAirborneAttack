@@ -15,8 +15,17 @@ namespace Gameplay
 
         public bool IsClosed => _path.Splines[0].Closed;
 
-        public Vector3 EvaluatePosition(float progress) => _path.EvaluatePosition(progress);
-        public Vector3 EvaluateTangent(float progress) => _path.EvaluateTangent(progress);
-        public Vector3 EvaluateUpVector(float progress) => _path.EvaluateUpVector(progress);
+        public Vector3 GetPosition(float progress)
+        {
+            return _path.EvaluatePosition(progress);
+        }
+
+        public Quaternion GetRotation(float progress)
+        {
+            var tangent = _path.EvaluateTangent(progress);
+            var upVector = _path.EvaluateUpVector(progress);
+
+            return Quaternion.LookRotation(tangent, upVector);
+        }
     }
 }

@@ -40,12 +40,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4119130494646417200}
-  - component: {fileID: 6410888453096744189}
-  - component: {fileID: 530366043706956714}
+  - component: {fileID: 8316943648719926508}
+  - component: {fileID: 847816716344458415}
   - component: {fileID: 4176738848003735231}
   - component: {fileID: 7223881006996823683}
   - component: {fileID: 349403430796493529}
-  - component: {fileID: 847816716344458415}
   m_Layer: 6
   m_Name: Enemy_2
   m_TagString: Untagged
@@ -69,7 +68,7 @@ Transform:
   - {fileID: 3854516518903430933}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6410888453096744189
+--- !u!114 &8316943648719926508
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -78,14 +77,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 2636869267701143786}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca403204dbe59544d9ef67546069a993, type: 3}
+  m_Script: {fileID: 11500000, guid: bbfd83e586307d242b3536a9c34c064c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _view: {fileID: 3066108011518777861}
   _damageRecipients:
   - {fileID: 4176738848003735231}
   - {fileID: 7223881006996823683}
   - {fileID: 349403430796493529}
---- !u!114 &530366043706956714
+--- !u!114 &847816716344458415
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -94,9 +94,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2636869267701143786}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55c7cc6f78706a04e8edcff866195912, type: 3}
+  m_Script: {fileID: 11500000, guid: 5a6d46fbaf913e94ca5d18ccbae06d19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _projectileSocket: {fileID: 4686612013318474831}
 --- !u!114 &4176738848003735231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -139,19 +140,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _damageMultiplyer: 3
   _hitbox: {fileID: 4039180344806001593}
---- !u!114 &847816716344458415
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2636869267701143786}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a6d46fbaf913e94ca5d18ccbae06d19, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _projectileSocket: {fileID: 4686612013318474831}
 --- !u!1 &3066108011518777861
 GameObject:
   m_ObjectHideFlags: 0

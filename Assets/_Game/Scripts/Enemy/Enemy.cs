@@ -1,6 +1,5 @@
 using Configs;
 using GameTick;
-using System;
 using UnityEngine;
 using Zenject;
 using R3;
@@ -8,93 +7,94 @@ using ITickable = GameTick.ITickable;
 
 namespace Gameplay
 {
-    public class Enemy : IDisposable, ITickable
+    public class Enemy : MonoBehaviour, ITickable
     {
-        private readonly EnemyView _view;
-        private readonly Health _health;
+        [SerializeField] private GameObject _view;
+        [SerializeField] private DamageReceiver[] _damageRecipients;
 
-        private EnemyPath _path;
-        private float _pathPassingRate;
-        private float _pathPassingProgress;
-
+        private Health _health;
+        private EnemyMovement _movement;
         private EnemyShooting _shooting;
 
         private bool _isEnabled = true;
+        private bool _canShoot = false;
 
         private GameTickProvider _tickProvider;
 
         public Observable<Unit> OnDeathSignal => _health.OnDeathSignal;
 
         [Inject]
-        public void Construct(GameTickProvider tickProvider)
+        private void Construct(GameTickProvider tickProvider)
         {
             _tickProvider = tickProvider;
             _tickProvider.AddTickable(this);
         }
 
-        public Enemy(EnemyView view, EnemyConfig config, EnemyPath path, Turret turret)
+        public Enemy Init(EnemyConfig config, EnemyPath path, Turret turret)
         {
-            _view = view;
-            _health = new Health(config.Health);
+            _canShoot = config.CanShoot;
 
-            foreach (var damageReceiver in _view.DamageRecipients)
-                damageReceiver.DamageSignal.Subscribe(damage => _health.TakeDamage(damage));
-            _health.OnDeathSignal.Subscribe(_ => OnDeath());
+            InitHealth(config.Health);
+            InitMovement(path, config.PathPassingRate);
+            if (_canShoot) InitShooting(config.ShootingData, turret);
 
-            _path = path;
-            _pathPassingRate = config.PathPassingRate;
-
-            if (config.CanShoot)
-            {
-                _shooting = _view.Get<EnemyShooting>().Init(config.ShootingData, turret);
-            }
+            return this;
         }
 
-        public void Enable()
+        private void InitHealth(float health)
+        {
+            _health = new Health(health);
+            foreach (var damageReceiver in _damageRecipients)
+            {
+                damageReceiver.DamageSignal.Subscribe(damage => _health.TakeDamage(damage));
+            }
+            _health.OnDeathSignal.Subscribe(_ => OnDeath());
+        }
+
+        private void InitMovement(EnemyPath path, float pathPassingRate)
+        {
+            _movement = new EnemyMovement(transform, path, pathPassingRate);
+        }
+
+        private void InitShooting(EnemyShootingData shootingData, Turret turret)
+        {
+            if (TryGetComponent<Shooting>(out var shooting))
+                _shooting = new EnemyShooting(transform, shooting, shootingData, turret);
+        }
+
+        private void OnDestroy()
+        {
+            _tickProvider.RemoveTickable(this);
+        }
+
+        public void Enable(bool setActiveView = false)
         {
             _isEnabled = true;
-            _view.Enable();
+
+            if (setActiveView)
+                _view.SetActive(true);
         }
 
-        public void Disable()
+        public void Disable(bool setActiveView = false)
         {
             _isEnabled = false;
-            _view.Disable();
+
+            if (setActiveView)
+                _view.SetActive(false);
         }
 
         public void Tick(float deltaTime)
         {
             if (!_isEnabled) return;
 
-            MoveAlongPath(deltaTime);
-            _shooting?.Shoot();
-        }
-
-        public void Dispose()
-        {
-            _tickProvider.RemoveTickable(this);
-        }
-
-        private void MoveAlongPath(float deltaTime)
-        {
-            _pathPassingProgress += deltaTime * _pathPassingRate;
-            
-            if (_path.IsClosed)
-                _pathPassingProgress = Mathf.Repeat(_pathPassingProgress, 1f);
-
-            var position = _path.EvaluatePosition(_pathPassingProgress);
-            var tangent = _path.EvaluateTangent(_pathPassingProgress);
-            var upVector = _path.EvaluateUpVector(_pathPassingProgress);
-            var rotation = Quaternion.LookRotation(tangent, upVector);
-
-            _view.Move(position);
-            _view.Rotate(rotation);
+            _movement.MoveAlongPath(deltaTime);
+            if (_canShoot) _shooting.TryShoot();
         }
 
         private void OnDeath()
         {
-            _view.Destroy();
-            Dispose();
+            Disable();
+            Destroy(gameObject);
         }
     }
 }

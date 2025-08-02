@@ -57,7 +57,7 @@ namespace Gameplay
                     }
 
                     var enemy = _enemyFactory.Create(config, path, turret);
-                    enemy.Disable();
+                    enemy.Disable(true);
 
                     enemies.Push(enemy);
                 }

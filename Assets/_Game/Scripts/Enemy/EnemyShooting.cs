@@ -1,29 +1,26 @@
-using System;
 using UnityEngine;
 
 namespace Gameplay
 {
-    public class EnemyShooting : MonoBehaviour
+    public class EnemyShooting
     {
+        private Transform _transform;
         private EnemyShootingData _shootingData;
         private Turret _turret;
         private Shooting _shooting;
 
-        public EnemyShooting Init(EnemyShootingData shootingData, Turret turret)
+        public EnemyShooting(Transform transform, Shooting shooting, 
+                             EnemyShootingData shootingData, Turret turret)
         {
+            _transform = transform;
             _shootingData = shootingData;
             _turret = turret;
-            _shooting = GetComponent<Shooting>();
-
-            if (_shooting == null)
-                throw new NullReferenceException("Shooting component not found!");
+            _shooting = shooting;
 
             _shooting.Init(shootingData);
-
-            return this;
         }
 
-        public void Shoot()
+        public void TryShoot()
         {
             if (CanShoot())
             {
@@ -36,15 +33,8 @@ namespace Gameplay
         {
             if (_turret == null) return false;
 
-            var distanceToTurret = (_turret.Position - transform.position).magnitude;
-
+            var distanceToTurret = (_turret.Position - _transform.position).magnitude;
             return distanceToTurret < _shootingData.VisibilityRange;
-        }
-
-        private void OnDrawGizmos()
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position, _shootingData.VisibilityRange);
         }
     }
 }
