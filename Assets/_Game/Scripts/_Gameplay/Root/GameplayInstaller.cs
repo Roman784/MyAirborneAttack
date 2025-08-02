@@ -8,7 +8,7 @@ namespace GameplayRoot
 {
     public sealed class GameplayInstaller : MonoInstaller
     {
-        [SerializeField] private PopUp _defaultPopUp;
+        [SerializeField] private GameOverPopUp _gameOverPopUpPrefab;
 
         public override void InstallBindings()
         {
@@ -46,7 +46,8 @@ namespace GameplayRoot
         {
             Container.Bind<GameplayPopUpProvider>().AsTransient();
 
-            Container.BindFactory<PopUp, PopUp.Factory>().FromComponentInNewPrefab(_defaultPopUp);
+            Container.BindFactory<GameOverPopUp, GameOverPopUp.Factory>()
+                .FromComponentInNewPrefab(_gameOverPopUpPrefab);
         }
     }
 }

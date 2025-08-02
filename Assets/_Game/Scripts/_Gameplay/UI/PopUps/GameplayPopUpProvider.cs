@@ -4,17 +4,17 @@ namespace UI
 {
     public class GameplayPopUpProvider
     {
-        private PopUp.Factory _defaultPopUp;
+        private GameOverPopUp.Factory _gameOverPopUp;
 
         [Inject]
-        private void Construct(PopUp.Factory defaultPopUp)
+        private void Construct(GameOverPopUp.Factory gameOverPopUp)
         {
-            _defaultPopUp = defaultPopUp;
+            _gameOverPopUp = gameOverPopUp;
         }
 
-        public void OpenDefaultPopUp()
+        public void OpenGameOverPopUp()
         {
-            _defaultPopUp.Create().Open();
+            _gameOverPopUp.Create().Open();
         }
     }
 }

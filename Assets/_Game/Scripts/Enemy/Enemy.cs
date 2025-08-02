@@ -64,6 +64,7 @@ namespace Gameplay
 
         private void OnDestroy()
         {
+            _isEnabled = false;
             _tickProvider.RemoveTickable(this);
         }
 

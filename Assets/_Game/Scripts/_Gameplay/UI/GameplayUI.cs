@@ -31,11 +31,5 @@ namespace UI
         {
             _sceneProvider.TryRestartScene();
         }
-
-        private void Update()
-        {
-            if (Input.GetKeyUp(KeyCode.O))
-                _popUpProvider.OpenDefaultPopUp();
-        }
     }
 }

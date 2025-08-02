@@ -47,7 +47,6 @@ namespace Gameplay
                 foreach (var spawnData in wave.SpawnSequenceData)
                 {
                     var config = spawnData.EnemyConfig;
-                    var nameId = config.NameId;
                     var path = spawnData.EnemyPath;
                     var key = spawnData.EnemyKey;
 

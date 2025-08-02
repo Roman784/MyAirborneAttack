@@ -1,4 +1,5 @@
 using DG.Tweening;
+using GameRoot;
 using UnityEngine;
 using UnityEngine.UI;
 using Utils;
@@ -6,7 +7,7 @@ using Zenject;
 
 namespace UI
 {
-    public class PopUp : MonoBehaviour
+    public abstract class PopUp : MonoBehaviour
     {
         [SerializeField] private RectTransform _view;
         [SerializeField] private CanvasGroup _fade;
@@ -17,15 +18,18 @@ namespace UI
         [SerializeField] private TweenData _closing;
         [SerializeField] private TweenData _fading;
 
+        protected SceneProvider _sceneProvider;
+        
         private PopUpsRoot _root;
 
         private Tween _viewChangingTween;
         private Tween _fadingTween;
 
         [Inject]
-        private void Construct(UIRoot uiRoot)
+        private void Construct(UIRoot uiRoot, SceneProvider sceneProvider)
         {
             _root = uiRoot.PopUpsRoot;
+            _sceneProvider = sceneProvider;
         }
 
         public virtual void Open()
@@ -62,10 +66,6 @@ namespace UI
         {
             _viewChangingTween?.Kill();
             _fadingTween?.Kill();
-        }
-
-        public class Factory : PopUpFactory<PopUp>
-        {
         }
     }
 }

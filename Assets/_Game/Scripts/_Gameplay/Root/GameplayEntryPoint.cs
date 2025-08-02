@@ -15,13 +15,15 @@ namespace GameplayRoot
         [SerializeField] private GameplayUI _gameplayUIPrefab;
 
         private GameplayLevelFactory _levelFactory;
+        private GameplayPopUpProvider _popUpProvider;
 
         private GameplayLevelsConfig LevelsConfig => GameConfig.LevelsConfig;
 
         [Inject]
-        private void Construct(GameplayLevelFactory levelFactory)
+        private void Construct(GameplayLevelFactory levelFactory, GameplayPopUpProvider popUpProvider)
         {
             _levelFactory = levelFactory;
+            _popUpProvider = popUpProvider;
         }
 
         public override IEnumerator Run<T>(T enterParams)
@@ -50,6 +52,10 @@ namespace GameplayRoot
             var ui = _uiFactory.Create(_gameplayUIPrefab);
             startWaveSignal.Subscribe(e => ui.ShowWaveProgress(e.Item1, e.Item2));
             ui.InitTurrentHealthBar(turret);
+
+            turret.OnDeathSignal
+                .Subscribe(_ => Observable.Timer(TimeSpan.FromSeconds(2))
+                .Subscribe(_ => _popUpProvider.OpenGameOverPopUp()));
 
             // Start gameplay.
             Observable.Timer(TimeSpan.FromSeconds(1))

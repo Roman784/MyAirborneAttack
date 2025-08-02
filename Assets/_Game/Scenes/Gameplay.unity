@@ -200,7 +200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3b072a3b882f3d45ab51e1529fb581e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _defaultPopUp: {fileID: 6054350655625708175, guid: 4882af34fc5ec434bbca8603d20ea516,
+  _gameOverPopUpPrefab: {fileID: 3463911200705592360, guid: 2cd5ba467e0ec1745a5cd7b3f70b57c2,
     type: 3}
 --- !u!1 &1995363378
 GameObject:
