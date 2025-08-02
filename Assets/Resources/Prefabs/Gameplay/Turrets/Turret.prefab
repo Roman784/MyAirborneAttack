@@ -73,9 +73,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3512434788549112316}
-  - component: {fileID: 6807670576685550412}
+  - component: {fileID: 234283429025896253}
   - component: {fileID: 3252098187968867558}
-  - component: {fileID: 6390572003371922771}
   - component: {fileID: 3805411123688546518}
   - component: {fileID: 9071865608011033313}
   m_Layer: 7
@@ -101,7 +100,7 @@ Transform:
   - {fileID: 1883616687663518869}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6807670576685550412
+--- !u!114 &234283429025896253
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -110,11 +109,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 1943939090207089093}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b62b09d1db4b72449888f5ad962b82c2, type: 3}
+  m_Script: {fileID: 11500000, guid: 757e431b6ee3f0943b35075c6cf8b072, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <CameraAnchor>k__BackingField: {fileID: 5357091920570724445}
-  <DamageReceiver>k__BackingField: {fileID: 9071865608011033313}
+  _damageRecipients:
+  - {fileID: 9071865608011033313}
+  _cameraAnchor: {fileID: 5357091920570724445}
+  _shootingData:
+    <ProjectileViewPrefab>k__BackingField: {fileID: 2954158392184157082, guid: 23bb1abc80eb22f4c962aee6c68b6aaf,
+      type: 3}
+    <ProjectileType>k__BackingField: 1
+    <Rate>k__BackingField: 20
+    <ProjectileFlightSpeed>k__BackingField: 50
+    <Damage>k__BackingField: 1
+    <TargetLayer>k__BackingField:
+      serializedVersion: 2
+      m_Bits: 64
 --- !u!114 &3252098187968867558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,28 +143,6 @@ MonoBehaviour:
   _maxSpeed: {x: 75, y: 75}
   _barrelClampAngles: {x: -45, y: 30}
   _initialBarrelAngle: -15
---- !u!114 &6390572003371922771
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1943939090207089093}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4b1a14a44fec6b47a15c4740ca9034b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _shootingData:
-    <ProjectileViewPrefab>k__BackingField: {fileID: 2954158392184157082, guid: 23bb1abc80eb22f4c962aee6c68b6aaf,
-      type: 3}
-    <ProjectileType>k__BackingField: 1
-    <Rate>k__BackingField: 100
-    <ProjectileFlightSpeed>k__BackingField: 50
-    <Damage>k__BackingField: 1
-    <TargetLayer>k__BackingField:
-      serializedVersion: 2
-      m_Bits: 64
 --- !u!114 &3805411123688546518
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -7,21 +7,25 @@ using ITickable = GameTick.ITickable;
 
 namespace Gameplay
 {
-    public class Turret : ITickable, IDisposable
+    [RequireComponent(typeof(TurretRotation))]
+    public class Turret : MonoBehaviour, ITickable
     {
+        [SerializeField] private DamageReceiver[] _damageRecipients;
+        [SerializeField] private Transform _cameraAnchor;
+
+        [Space]
+
+        [SerializeField] private ShootingData _shootingData;
+
         private const float MAX_HEALTH = 10;
 
-        private TurretView _view;
         private Health _health;
-
-        private TurretRotationController _rotationController;
-        private TurretShootingContoller _shootingContoller;
+        private TurretRotation _rotation;
+        private TurretShooting _shooting;
 
         private ITurretInput _input;
         private GameTickProvider _tickProvider;
 
-        public Transform Transform => _view.transform;
-        public Vector3 Position => _view.Position;
         public Observable<Unit> OnDeathSignal => _health.OnDeathSignal;
 
         [Inject]
@@ -33,44 +37,71 @@ namespace Gameplay
             _tickProvider.AddTickable(this);
         }
 
-        public Turret(TurretView view)
+        public Turret Init(Transform anchor)
         {
-            _view = view;
-            _health = new Health(MAX_HEALTH);
+            InitHealth(MAX_HEALTH);
+            InitRotation();
+            InitShooting();
+            InitPosition(anchor);
 
-            _view.DamageReceiver.DamageSignal
-                .Subscribe(damage => _health.TakeDamage(damage));
+            return this;
+        }
+
+        private void InitHealth(float health)
+        {
+            _health = new Health(health);
+            foreach (var damageReceiver in _damageRecipients)
+            {
+                damageReceiver.DamageSignal.Subscribe(damage => _health.TakeDamage(damage));
+            }
             _health.OnDeathSignal.Subscribe(_ => OnDeath());
+        }
 
-            _rotationController = view.Get<TurretRotationController>();
-            _shootingContoller = view.Get<TurretShootingContoller>();
+        private void InitRotation()
+        {
+            _rotation = GetComponent<TurretRotation>();
+        }
+
+        private void InitShooting()
+        {
+            var shooting = GetComponent<Shooting>();
+
+            if (shooting == null)
+                throw new NullReferenceException($"Failed to get {typeof(Shooting)}!");
+
+            _shooting = new TurretShooting(_shootingData, shooting);
+        }
+
+        private void InitPosition(Transform anchor)
+        {
+            transform.position = anchor.position;
+            transform.rotation = anchor.rotation;
+            transform.SetParent(anchor, false);
+        }
+
+        private void OnDestroy()
+        {
+            _tickProvider.RemoveTickable(this);
         }
 
         public void Tick(float deltaTime)
         {
             if (!_input.IsActive()) return;
-
             var inputAxes = _input.GetAxes();
-            _rotationController.Rotate(inputAxes, deltaTime);
 
-            _shootingContoller.Shoot();
+            _rotation.Rotate(inputAxes, deltaTime);
+            _shooting.TryShoot();
         }
 
         public void AttachCamera(TrackingCamera camera)
         {
-            var initialRotation = new Vector2(0, _rotationController.InitialBarrelAngle);
-            camera.Attach(_view.CameraAnchor, _rotationController.AnglesChangedSignal, initialRotation);
-        }
-
-        public void Dispose()
-        {
-            _tickProvider.RemoveTickable(this);
+            var initialRotation = new Vector2(0, _rotation.InitialBarrelAngle);
+            camera.Attach(_cameraAnchor, _rotation.AnglesChangedSignal, initialRotation);
         }
 
         private void OnDeath()
         {
-            _view.Destroy();
-            Dispose();
+            Destroy(gameObject);
         }
     }
 }

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Gameplay
 {
-    public class TurretRotationController : MonoBehaviour
+    public class TurretRotation : MonoBehaviour
     {
         [SerializeField] private Transform _rotor;
         [SerializeField] private Transform _barrel;

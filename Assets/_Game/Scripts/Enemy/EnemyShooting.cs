@@ -4,10 +4,10 @@ namespace Gameplay
 {
     public class EnemyShooting
     {
-        private Transform _transform;
-        private EnemyShootingData _shootingData;
-        private Turret _turret;
-        private Shooting _shooting;
+        private readonly Transform _transform;
+        private readonly EnemyShootingData _shootingData;
+        private readonly Turret _turret;
+        private readonly Shooting _shooting;
 
         public EnemyShooting(Transform transform, Shooting shooting, 
                              EnemyShootingData shootingData, Turret turret)
@@ -24,7 +24,7 @@ namespace Gameplay
         {
             if (CanShoot())
             {
-                _shooting.TakeAim(_turret.Transform);
+                _shooting.TakeAim(_turret.transform);
                 _shooting.TryShoot();
             }
         }
@@ -33,7 +33,7 @@ namespace Gameplay
         {
             if (_turret == null) return false;
 
-            var distanceToTurret = (_turret.Position - _transform.position).magnitude;
+            var distanceToTurret = (_turret.transform.position - _transform.position).magnitude;
             return distanceToTurret < _shootingData.VisibilityRange;
         }
     }
