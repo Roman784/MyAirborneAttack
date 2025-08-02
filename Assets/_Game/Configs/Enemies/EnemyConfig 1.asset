@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <NameId>k__BackingField: Enemy_1
   <PathPassingRate>k__BackingField: 0.1
+  <Health>k__BackingField: 10

@@ -7,5 +7,6 @@ namespace Configs
     {
         [field: SerializeField] public string NameId { get; private set; }
         [field: SerializeField] public float PathPassingRate { get; private set; }
+        [field: SerializeField] public float Health { get; private set; }
     }
 }

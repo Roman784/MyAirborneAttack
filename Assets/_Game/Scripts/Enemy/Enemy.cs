@@ -3,6 +3,7 @@ using GameTick;
 using System;
 using UnityEngine;
 using Zenject;
+using R3;
 using ITickable = GameTick.ITickable;
 
 namespace Gameplay
@@ -10,12 +11,15 @@ namespace Gameplay
     public class Enemy : IDisposable, ITickable
     {
         private EnemyView _view;
+        private Health _health;
 
         private EnemyPath _path;
         private float _pathPassingRate;
         private float _pathPassingProgress;
 
         private GameTickProvider _tickProvider;
+
+        public Observable<Unit> OnDeathSignal => _health.OnDeathSignal;
 
         [Inject]
         public void Construct(GameTickProvider tickProvider)
@@ -27,6 +31,11 @@ namespace Gameplay
         public Enemy(EnemyView view, EnemyConfig config, EnemyPath path)
         {
             _view = view;
+            _health = new Health(config.Health);
+
+            foreach (var damageReceiver in _view.DamageRecipients)
+                damageReceiver.DamageSignal.Subscribe(damage => _health.TakeDamage(damage));
+            _health.OnDeathSignal.Subscribe(_ => OnDeath());
 
             _path = path;
             _pathPassingRate = config.PathPassingRate;
@@ -53,6 +62,12 @@ namespace Gameplay
 
             _view.Move(position);
             _view.Rotate(rotation);
+        }
+
+        private void OnDeath()
+        {
+            _view.Destroy();
+            Dispose();
         }
     }
 }

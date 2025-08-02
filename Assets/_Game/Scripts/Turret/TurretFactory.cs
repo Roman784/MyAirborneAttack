@@ -2,6 +2,7 @@ using Assets;
 using GameRoot;
 using UnityEngine;
 using Zenject;
+using R3;
 
 namespace Gameplay
 {
@@ -23,6 +24,7 @@ namespace Gameplay
             var turret = _container.Instantiate<Turret>(new object[] { view });
 
             _disposables.Add(turret);
+            turret.OnDeathSignal.Subscribe(_ => _disposables.Remove(turret));
 
             return turret;
         }

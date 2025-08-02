@@ -3,6 +3,7 @@ using Configs;
 using GameRoot;
 using System;
 using Zenject;
+using R3;
 
 namespace Gameplay
 {
@@ -22,6 +23,7 @@ namespace Gameplay
             var enemy = _container.Instantiate<Enemy>(new object[] { view, config, path });
 
             _disposables.Add(enemy);
+            enemy.OnDeathSignal.Subscribe(_ => _disposables.Remove(enemy));
 
             return enemy;
         }

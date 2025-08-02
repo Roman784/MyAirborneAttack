@@ -1,4 +1,5 @@
 using GameTick;
+using R3;
 using System;
 using UnityEngine;
 using Zenject;
@@ -8,13 +9,18 @@ namespace Gameplay
 {
     public class Turret : ITickable, IDisposable
     {
+        private const float MAX_HEALTH = 100;
+
         private TurretView _view;
+        private Health _health;
 
         private TurretRotationController _rotationController;
         private TurretFiringController _firingController;
 
         private ITurretInput _input;
         private GameTickProvider _tickProvider;
+
+        public Observable<Unit> OnDeathSignal => _health.OnDeathSignal;
 
         [Inject]
         public void Construct(ITurretInput input, GameTickProvider tickProvider)
@@ -28,6 +34,11 @@ namespace Gameplay
         public Turret(TurretView view)
         {
             _view = view;
+            _health = new Health(MAX_HEALTH);
+
+            _view.DamageReceiver.DamageSignal
+                .Subscribe(damage => _health.TakeDamage(damage));
+            _health.OnDeathSignal.Subscribe(_ => OnDeath());
 
             _rotationController = view.Get<TurretRotationController>();
             _firingController = view.Get<TurretFiringController>();
@@ -52,6 +63,12 @@ namespace Gameplay
         public void Dispose()
         {
             _tickProvider.RemoveTickable(this);
+        }
+
+        private void OnDeath()
+        {
+            _view.Destroy();
+            Dispose();
         }
     }
 }

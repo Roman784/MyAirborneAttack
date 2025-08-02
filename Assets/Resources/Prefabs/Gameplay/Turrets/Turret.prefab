@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5357091920570724445}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: CameraAnchor
   m_TagString: Untagged
   m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3119459852820432689}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BarrelAnchor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -77,7 +77,8 @@ GameObject:
   - component: {fileID: 3252098187968867558}
   - component: {fileID: 178794185496508383}
   - component: {fileID: 3805411123688546518}
-  m_Layer: 0
+  - component: {fileID: 9071865608011033313}
+  m_Layer: 7
   m_Name: Turret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -113,6 +114,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <CameraAnchor>k__BackingField: {fileID: 5357091920570724445}
+  <DamageReceiver>k__BackingField: {fileID: 0}
 --- !u!114 &3252098187968867558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -167,6 +169,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _projectileSocket: {fileID: 4236215606465831514}
+--- !u!114 &9071865608011033313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1943939090207089093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 586c52280e870e14eb26daa1c82e9361, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damageMultiplyer: 1
+  _hitbox: {fileID: 3812931102222021788}
 --- !u!1 &2673047190111959615
 GameObject:
   m_ObjectHideFlags: 0
@@ -178,7 +194,7 @@ GameObject:
   - component: {fileID: 4320779171886125515}
   - component: {fileID: 6398015401432459361}
   - component: {fileID: 1855712660126069430}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Rotor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -259,7 +275,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4150659375214891990}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: RotorAnchor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -292,7 +308,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1883616687663518869}
-  m_Layer: 0
+  - component: {fileID: 3812931102222021788}
+  - component: {fileID: 2287230725094966747}
+  m_Layer: 7
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -316,6 +334,39 @@ Transform:
   - {fileID: 4150659375214891990}
   m_Father: {fileID: 3512434788549112316}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!114 &3812931102222021788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4620101355278871394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92467e93f97f713459ae86250a541d08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!135 &2287230725094966747
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4620101355278871394}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.37
+  m_Center: {x: 0, y: 0.26, z: 0}
 --- !u!1 &4662671419971769597
 GameObject:
   m_ObjectHideFlags: 0
@@ -327,7 +378,7 @@ GameObject:
   - component: {fileID: 3499302668721920713}
   - component: {fileID: 5762515693885587481}
   - component: {fileID: 3940609250760228203}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -411,7 +462,7 @@ GameObject:
   - component: {fileID: 9194452325539541998}
   - component: {fileID: 957887468726205070}
   - component: {fileID: 5013665426828565858}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -492,7 +543,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4236215606465831514}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ProjectileSocket
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
