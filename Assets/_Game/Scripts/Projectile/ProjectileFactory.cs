@@ -37,7 +37,7 @@ namespace Gameplay
                 CreateViewsPool(viewPrefab, out viewsPool);
 
             var view = viewsPool.Get();
-            view.transform.position = position;
+            view.SetInitialPosition(position);
 
             return view;
         }

@@ -17,14 +17,15 @@ namespace Gameplay
 
         private Vector2 _currentAngles;
 
-        public float InitialBarrelAngle => _initialBarrelAngle;
         private Subject<Vector2> _anglesChangedSignalSubj = new();
+
+        public float InitialBarrelAngle => _initialBarrelAngle;
         public Observable<Vector2> AnglesChangedSignal => _anglesChangedSignalSubj;
 
         private void Start()
         {
             _currentAngles.y = _initialBarrelAngle;
-            RotateBarrel(_initialBarrelAngle);
+            RotateBarrel(ref _initialBarrelAngle);
         }
 
         public void Rotate(Vector2 inputAxes, float deltaTime)
@@ -37,7 +38,7 @@ namespace Gameplay
 
             // Vertical rotation.
             _currentAngles.y -= velocity.y * deltaTime;
-            RotateBarrel(_currentAngles.y);
+            RotateBarrel(ref _currentAngles.y);
 
             _anglesChangedSignalSubj.OnNext(_currentAngles);
         }
@@ -47,7 +48,7 @@ namespace Gameplay
             _rotor.localRotation = Quaternion.Euler(0f, angle, 0f);
         }
 
-        private void RotateBarrel(float angle)
+        private void RotateBarrel(ref float angle)
         {
             angle = Mathf.Clamp(angle, _barrelClampAngles.x, _barrelClampAngles.y);
             _barrel.localRotation = Quaternion.Euler(0f, 0f, angle);

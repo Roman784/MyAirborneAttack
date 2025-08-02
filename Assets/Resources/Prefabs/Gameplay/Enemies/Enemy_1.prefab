@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4119130494646417200}
   - component: {fileID: 6410888453096744189}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Enemy_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54,7 +54,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3854516518903430933}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,12 +71,12 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3046944670683047910}
-  - {fileID: 6813879456617691934}
   - {fileID: 6511781001748355539}
+  - {fileID: 6813879456617691934}
   m_Father: {fileID: 4119130494646417200}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4088123773809861846
@@ -91,8 +91,9 @@ GameObject:
   - component: {fileID: 5596852910055517158}
   - component: {fileID: 6578960817830721021}
   - component: {fileID: 7431621223554849913}
-  m_Layer: 0
-  m_Name: Cube (2)
+  - component: {fileID: 4039180344806001593}
+  m_Layer: 6
+  m_Name: Tail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -178,12 +179,24 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4039180344806001593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4088123773809861846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92467e93f97f713459ae86250a541d08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6422426002274373111
 GameObject:
   m_ObjectHideFlags: 0
@@ -196,8 +209,9 @@ GameObject:
   - component: {fileID: 2988744050966651468}
   - component: {fileID: 3704417017362627481}
   - component: {fileID: 8933672917429922462}
-  m_Layer: 0
-  m_Name: Cube (1)
+  - component: {fileID: 8909743509680565448}
+  m_Layer: 6
+  m_Name: Wing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -283,12 +297,24 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8909743509680565448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6422426002274373111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92467e93f97f713459ae86250a541d08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8946124173701400905
 GameObject:
   m_ObjectHideFlags: 0
@@ -301,8 +327,9 @@ GameObject:
   - component: {fileID: 2166921265573898851}
   - component: {fileID: 8034472996143455902}
   - component: {fileID: 1233405065321302445}
-  m_Layer: 0
-  m_Name: Cube
+  - component: {fileID: 3852116942022650533}
+  m_Layer: 6
+  m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -388,9 +415,21 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3852116942022650533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8946124173701400905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92467e93f97f713459ae86250a541d08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

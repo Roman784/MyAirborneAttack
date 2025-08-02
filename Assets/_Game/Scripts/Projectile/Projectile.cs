@@ -56,8 +56,11 @@ namespace Gameplay
         private bool CheckCollisions()
         {
             var distanceVector = _view.Position - _view.PreviousPosition;
-            if (Physics.Raycast(_view.PreviousPosition, distanceVector, out RaycastHit hit, _shootingData.TargetLayer))
+            if (Physics.Raycast(_view.PreviousPosition, distanceVector, out RaycastHit hit, distanceVector.magnitude, _shootingData.TargetLayer))
             {
+                if (hit.collider.TryGetComponent<Hitbox>(out var hitbox))
+                    hitbox.Hit(hit, _shootingData.Damage);
+
                 _onHitSignalSubj.OnNext(hit);
                 _onHitSignalSubj.OnCompleted();
 
