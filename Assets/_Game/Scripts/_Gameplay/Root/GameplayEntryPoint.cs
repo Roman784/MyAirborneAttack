@@ -49,6 +49,7 @@ namespace GameplayRoot
             // UI.
             var ui = _uiFactory.Create(_gameplayUIPrefab);
             startWaveSignal.Subscribe(e => ui.ShowWaveProgress(e.Item1, e.Item2));
+            ui.InitTurrentHealthBar(turret);
 
             // Start gameplay.
             Observable.Timer(TimeSpan.FromSeconds(1))

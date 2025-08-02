@@ -26,6 +26,7 @@ namespace Gameplay
         private ITurretInput _input;
         private GameTickProvider _tickProvider;
 
+        public Health Health => _health;
         public Observable<Unit> OnDeathSignal => _health.OnDeathSignal;
 
         [Inject]
