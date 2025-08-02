@@ -150,7 +150,7 @@ MonoBehaviour:
     <ProjectileViewPrefab>k__BackingField: {fileID: 2954158392184157082, guid: 23bb1abc80eb22f4c962aee6c68b6aaf,
       type: 3}
     <ProjectileType>k__BackingField: 1
-    <Rate>k__BackingField: 2
+    <Rate>k__BackingField: 100
     <ProjectileFlightSpeed>k__BackingField: 50
     <Damage>k__BackingField: 1
     <TargetLayer>k__BackingField:

@@ -10,5 +10,7 @@ namespace Gameplay
         [field: SerializeField] public float TimeSinceWaveStart { get; private set; }
         [field: SerializeField] public EnemyConfig EnemyConfig { get; private set; }
         [field: SerializeField] public EnemyPath EnemyPath { get; private set; }
+
+        public (string, EnemyPath) EnemyKey => (EnemyConfig.NameId, EnemyPath);
     }
 }

@@ -1,3 +1,4 @@
+using GameTick;
 using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
@@ -9,20 +10,24 @@ namespace Gameplay
         [SerializeField] private WaveData[] _wavesData;
 
         private GameplayLevelView _view;
+        private Dictionary<(string, EnemyPath), Stack<Enemy>> _enemiesMap = new();
 
-        private Dictionary<string, Stack<Enemy>> _enemiesMap = new();
+        private WavesPassingService _wavesPassingService;
 
         private TurretFactory _turretFactory;
         private EnemyFactory _enemyFactory;
+        private GameTickProvider _gameTickProvider;
 
         [Inject]
-        private void Construct(TurretFactory turretFactory, EnemyFactory enemyFactory,
+        private void Construct(TurretFactory turretFactory, EnemyFactory enemyFactory, 
+                               GameTickProvider gameTickProvider,
                                GameplayLevelView view)
         {
             _view = view;
 
             _turretFactory = turretFactory;
             _enemyFactory = enemyFactory;
+            _gameTickProvider = gameTickProvider;
         }
 
         public Turret CreateTurret(string nameId)
@@ -43,9 +48,13 @@ namespace Gameplay
                     var config = spawnData.EnemyConfig;
                     var nameId = config.NameId;
                     var path = spawnData.EnemyPath;
+                    var key = spawnData.EnemyKey;
 
-                    if (!_enemiesMap.TryGetValue(nameId, out var enemies))
+                    if (!_enemiesMap.TryGetValue(key, out var enemies))
+                    {
                         enemies = new Stack<Enemy>();
+                        _enemiesMap[key] = enemies;
+                    }
 
                     var enemy = _enemyFactory.Create(config, path);
                     enemy.Disable();
@@ -53,6 +62,18 @@ namespace Gameplay
                     enemies.Push(enemy);
                 }
             }
+        }
+
+        public void StartWaves()
+        {
+            _wavesPassingService = new WavesPassingService(_wavesData, _enemiesMap);
+            _gameTickProvider.AddTickable(_wavesPassingService);
+        }
+
+        private void OnDestroy()
+        {
+            if (_wavesPassingService != null)
+                _gameTickProvider.RemoveTickable(_wavesPassingService);
         }
 
         private void OnDrawGizmos()

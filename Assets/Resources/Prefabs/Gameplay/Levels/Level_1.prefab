@@ -56,6 +56,11 @@ MonoBehaviour:
       <EnemyConfig>k__BackingField: {fileID: 11400000, guid: 9918ce037be26e84484abed96b08a4ad,
         type: 2}
       <EnemyPath>k__BackingField: {fileID: 3875698100384041290}
+  - <SpawnSequenceData>k__BackingField:
+    - <TimeSinceWaveStart>k__BackingField: 0
+      <EnemyConfig>k__BackingField: {fileID: 11400000, guid: 9918ce037be26e84484abed96b08a4ad,
+        type: 2}
+      <EnemyPath>k__BackingField: {fileID: 3875698100384041290}
 --- !u!1 &5960323842429104245
 GameObject:
   m_ObjectHideFlags: 0

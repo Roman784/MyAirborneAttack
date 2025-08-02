@@ -40,6 +40,8 @@ namespace GameplayRoot
             level.CreateTurret(enterParams.TurretNameId);
             level.PrepareEnemies();
 
+            level.StartWaves();
+
             isLoaded = true;
 
             yield return new WaitUntil(() => isLoaded);
