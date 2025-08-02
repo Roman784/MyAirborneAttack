@@ -9,6 +9,9 @@ namespace GameRoot
     { 
         private readonly SceneLoader _sceneLoader;
 
+        private string _currentSceneName;
+        private SceneEnterParams _currentSceneEnterParams;
+
         [Inject]
         public SceneProvider(UIRoot uiRoot)
         {
@@ -18,7 +21,23 @@ namespace GameRoot
         public void OpenGameplay(int levelNumber, string turretNameId)
         {
             var enterParams = new GameplayEnterParams(levelNumber, turretNameId);
+
+            _currentSceneName = Scenes.GAMEPLAY;
+            _currentSceneEnterParams = enterParams;
+            
             _sceneLoader.LoadAndStartGameplay(enterParams);
+        }
+
+        public void TryRestartScene()
+        {
+            if (_currentSceneEnterParams == null) return;
+
+            switch (_currentSceneName)
+            {
+                case Scenes.GAMEPLAY:
+                    _sceneLoader.LoadAndStartGameplay((GameplayEnterParams)_currentSceneEnterParams);
+                    break;
+            }
         }
     }
 }

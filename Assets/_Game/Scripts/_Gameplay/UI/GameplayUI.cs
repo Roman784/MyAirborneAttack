@@ -17,5 +17,10 @@ namespace UI
         {
             _turretHealthBar.Init(turret.Health);
         }
+
+        public void RestartLevel()
+        {
+            _sceneProvider.TryRestartScene();
+        }
     }
 }
