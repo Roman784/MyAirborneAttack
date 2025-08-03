@@ -28,4 +28,8 @@ MonoBehaviour:
       m_Bits: 384
     <HitEffectPrefab>k__BackingField: {fileID: -4551448964940002462, guid: 24bc7069ca24e3140a89fafda5a8f65e,
       type: 3}
+    <ShootSound>k__BackingField: {fileID: 8300000, guid: 423dbb140a5e7bc43a4e8b3569a0aebf,
+      type: 3}
+    <HitSound>k__BackingField: {fileID: 8300000, guid: 79bf576b18d2d7d459e81fcdb81271ed,
+      type: 3}
     <VisibilityRange>k__BackingField: 50

@@ -15,6 +15,7 @@ namespace Gameplay
         private Health _health;
         private EnemyMovement _movement;
         private EnemyShooting _shooting;
+        private EnemyAudio _audio;
 
         private bool _isEnabled = true;
         private bool _canShoot = false;
@@ -39,6 +40,7 @@ namespace Gameplay
             if (_canShoot) InitShooting(config.ShootingData, turret);
             InitEffects();
             InitAnimation();
+            InitAudio();
 
             return this;
         }
@@ -76,6 +78,16 @@ namespace Gameplay
                 OnDeathSignal.Subscribe(_ => animation.Stop());
         }
 
+        private void InitAudio()
+        {
+            if (TryGetComponent<EnemyAudio>(out var audio))
+            {
+                _audio = audio;
+                _audio.PlayMovementSound();
+                OnDeathSignal.Subscribe(_ => _audio.PlayExplosionSound());
+            }
+        }
+
         private void OnDestroy()
         {
             _isEnabled = false;
@@ -88,6 +100,8 @@ namespace Gameplay
 
             if (setActiveView)
                 _view.SetActive(true);
+
+            _audio?.Unmute();
         }
 
         public void Disable(bool setActiveView = false)
@@ -96,6 +110,8 @@ namespace Gameplay
 
             if (setActiveView)
                 _view.SetActive(false);
+
+            _audio?.Mute();
         }
 
         public void Tick(float deltaTime)

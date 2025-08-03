@@ -76,3 +76,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _uiRootPrefab: {fileID: 7447680209410815778, guid: 377f9ba9cc9f0414b9ec601c009f52d8,
     type: 3}
+  _audioSourcerPrefab: {fileID: 1195264737199355874, guid: bb6aee374c8b35d44bdebd33a9b08f1b,
+    type: 3}

@@ -14,5 +14,6 @@ namespace Gameplay
         [field: SerializeField] public float Damage { get; private set; }
         [field: SerializeField] public LayerMask TargetLayer { get; private set; }
         [field: SerializeField] public Effect HitEffectPrefab { get; private set; }
+        [field: SerializeField] public AudioClip ShootSound { get; private set; }
     }
 }

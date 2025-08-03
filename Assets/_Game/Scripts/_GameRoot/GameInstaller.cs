@@ -1,4 +1,5 @@
 using Assets;
+using Audio;
 using Configs;
 using GameTick;
 using UI;
@@ -10,12 +11,19 @@ namespace GameRoot
     public sealed class GameInstaller : MonoInstaller
     {
         [SerializeField] private UIRoot _uiRootPrefab;
+        [SerializeField] private AudioSourcer _audioSourcerPrefab;
 
         public override void InstallBindings()
         {
+            BindPrefabs();
             BindProviders();
             BindFactories();
             BindUI();
+        }
+
+        private void BindPrefabs()
+        {
+            Container.Bind<AudioSourcer>().FromInstance(_audioSourcerPrefab).AsTransient();
         }
 
         private void BindProviders()
@@ -23,6 +31,7 @@ namespace GameRoot
             Container.Bind<SceneProvider>().AsSingle();
             Container.Bind<IConfigProvider>().To<ScriptableObjectConfigProvider>().AsSingle();
             Container.Bind<IAssetsProvider>().To<ResourcesAssetsProvider>().AsSingle();
+            Container.Bind<AudioProvider>().AsSingle();
             BindTickProvider();
         }
 
