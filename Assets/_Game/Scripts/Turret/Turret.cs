@@ -77,7 +77,6 @@ namespace Gameplay
         {
             transform.position = anchor.position;
             transform.rotation = anchor.rotation;
-            transform.SetParent(anchor, false);
         }
 
         private void OnDestroy()
