@@ -54,8 +54,12 @@ namespace GameplayRoot
             ui.InitTurrentHealthBar(turret);
 
             turret.OnDeathSignal
-                .Subscribe(_ => Observable.Timer(TimeSpan.FromSeconds(2))
+                .Subscribe(_ => Observable.Timer(TimeSpan.FromSeconds(1))
                 .Subscribe(_ => _popUpProvider.OpenGameOverPopUp()));
+
+            level.LevelPassedSignal
+                .Subscribe(_ => Observable.Timer(TimeSpan.FromSeconds(1))
+                .Subscribe(_ => _popUpProvider.OpenLevelPassedPopUp()));
 
             // Start gameplay.
             Observable.Timer(TimeSpan.FromSeconds(1))

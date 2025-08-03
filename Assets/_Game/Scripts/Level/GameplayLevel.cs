@@ -19,6 +19,8 @@ namespace Gameplay
         private EnemyFactory _enemyFactory;
         private GameTickProvider _gameTickProvider;
 
+        public Observable<Unit> LevelPassedSignal => _wavesPassingService?.AllWavesOverSignal;
+
         [Inject]
         private void Construct(TurretFactory turretFactory, EnemyFactory enemyFactory, 
                                GameTickProvider gameTickProvider,

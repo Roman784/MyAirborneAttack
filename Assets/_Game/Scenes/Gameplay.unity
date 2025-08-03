@@ -202,6 +202,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gameOverPopUpPrefab: {fileID: 3463911200705592360, guid: 2cd5ba467e0ec1745a5cd7b3f70b57c2,
     type: 3}
+  _levelPassedPopUpPrefab: {fileID: -4146466899975938920, guid: 339e51d4aef32e6479cffee9dc89ce14,
+    type: 3}
 --- !u!1 &1995363378
 GameObject:
   m_ObjectHideFlags: 0

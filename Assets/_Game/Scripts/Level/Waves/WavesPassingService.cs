@@ -19,8 +19,10 @@ namespace Gameplay
         private List<Enemy> _spawnedEnemies = new();
 
         private Subject<(int, int)> _waveStartSignalSubj = new(); // <(current wave, total waves)>
+        private Subject<Unit> _allWavesOverSignalSubj = new();
 
         public Observable<(int, int)> WaveStartSignal => _waveStartSignalSubj;
+        public Observable<Unit> AllWavesOverSignal => _allWavesOverSignalSubj;
         private WaveData CurrentWave => _wavesData[_waveIdx];
 
         public WavesPassingService(IEnumerable<WaveData> wavesData, 
@@ -75,6 +77,9 @@ namespace Gameplay
             else
             {
                 _areAllWavesOver = true;
+
+                _allWavesOverSignalSubj.OnNext(Unit.Default);
+                _allWavesOverSignalSubj.OnCompleted();
             }
         }
 
