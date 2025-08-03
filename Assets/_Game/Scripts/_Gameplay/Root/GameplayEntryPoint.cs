@@ -59,17 +59,26 @@ namespace GameplayRoot
 
             turret.OnDeathSignal
                 .Subscribe(_ => Observable.Timer(TimeSpan.FromSeconds(1))
-                .Subscribe(_ => _popUpProvider.OpenGameOverPopUp())
+                .Subscribe(_ =>
+                {
+                    _gameTickProvider.Pause();
+                    _popUpProvider.OpenGameOverPopUp();
+                })
                 .AddTo(_disposables))
                 .AddTo(_disposables);
 
             level.LevelPassedSignal
                 .Subscribe(_ => Observable.Timer(TimeSpan.FromSeconds(3))
-                .Subscribe(_ => _popUpProvider.OpenLevelPassedPopUp())
+                .Subscribe(_ =>
+                {
+                    _gameTickProvider.Pause();
+                    _popUpProvider.OpenLevelPassedPopUp();
+                })
                 .AddTo(_disposables))
                 .AddTo(_disposables);
 
             // Start gameplay.
+            _gameTickProvider.Resume();
             Observable.Timer(TimeSpan.FromSeconds(1))
                 .Subscribe(_ => level.StartWaves())
                 .AddTo(_disposables);

@@ -17,7 +17,7 @@ namespace Gameplay
 
         [SerializeField] private ShootingData _shootingData;
 
-        private const float MAX_HEALTH = 10;
+        private const float MAX_HEALTH = 20;
 
         private Health _health;
         private TurretRotation _rotation;

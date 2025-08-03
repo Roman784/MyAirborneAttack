@@ -10,11 +10,15 @@ namespace GameTick
         private HashSet<ITickable> _toAddTickables = new();
         private HashSet<ITickable> _toRemoveTickables = new();
 
+        private bool _isPaused = false;
+
         public void AddTickable(ITickable tickable) => _toAddTickables.Add(tickable);
         public void RemoveTickable(ITickable tickable) => _toRemoveTickables.Add(tickable);
 
         private void Update()
         {
+            if (_isPaused) return;
+
             float deltaTime = Time.deltaTime;
 
             foreach (var tickable in _tickables)
@@ -25,6 +29,16 @@ namespace GameTick
             // To avoid modifying the collection while the main loop is running.
             AddRequiredTickables(_toAddTickables);
             RemoveRequiredTickables(_toRemoveTickables);
+        }
+
+        public void Pause()
+        {
+            _isPaused = true;
+        }
+
+        public void Resume()
+        {
+            _isPaused = false;
         }
 
         private void AddRequiredTickables(HashSet<ITickable> requiredTickables)
