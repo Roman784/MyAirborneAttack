@@ -38,6 +38,7 @@ namespace Gameplay
             InitMovement(path, config.PathPassingRate);
             if (_canShoot) InitShooting(config.ShootingData, turret);
             InitEffects();
+            InitAnimation();
 
             return this;
         }
@@ -67,6 +68,12 @@ namespace Gameplay
         {
             if (TryGetComponent<EnemyEffects>(out var effects))
                 OnDeathSignal.Subscribe(_ => effects.PlayExplosionEffect());
+        }
+
+        private void InitAnimation()
+        {
+            if (TryGetComponent<EnemyAnimation>(out var animation))
+                OnDeathSignal.Subscribe(_ => animation.Stop());
         }
 
         private void OnDestroy()
