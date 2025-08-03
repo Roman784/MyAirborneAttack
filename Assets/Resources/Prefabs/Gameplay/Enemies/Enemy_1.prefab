@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8406797641345487838}
   - component: {fileID: 4176738848003735231}
   - component: {fileID: 7223881006996823683}
+  - component: {fileID: 2764352633929412563}
   m_Layer: 6
   m_Name: Enemy_1
   m_TagString: Untagged
@@ -79,6 +80,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _damageMultiplyer: 5
   _hitbox: {fileID: 7428478696765226901}
+--- !u!114 &2764352633929412563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2636869267701143786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1423884df862b534c91f631baf4841fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _explosionEffect: {fileID: 937704820180790078, guid: e1b08032bec16ba4eb1ae23cbd572664,
+    type: 3}
 --- !u!1001 &491610077791603628
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -115,12 +130,12 @@ PrefabInstance:
     - target: {fileID: 6485877311583126440, guid: 3c52f5ed9b2094abeb34f5a0d6da0250,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.63
       objectReference: {fileID: 0}
     - target: {fileID: 6485877311583126440, guid: 3c52f5ed9b2094abeb34f5a0d6da0250,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.38
       objectReference: {fileID: 0}
     - target: {fileID: 6485877311583126440, guid: 3c52f5ed9b2094abeb34f5a0d6da0250,
         type: 3}

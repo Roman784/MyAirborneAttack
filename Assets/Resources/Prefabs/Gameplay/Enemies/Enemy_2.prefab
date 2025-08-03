@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8316943648719926508}
   - component: {fileID: 847816716344458415}
   - component: {fileID: 4176738848003735231}
+  - component: {fileID: 6070389658533640134}
   m_Layer: 6
   m_Name: Enemy_2
   m_TagString: Untagged
@@ -77,6 +78,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _damageMultiplyer: 1
   _hitbox: {fileID: 6325599895361426873}
+--- !u!114 &6070389658533640134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2636869267701143786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1423884df862b534c91f631baf4841fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _explosionEffect: {fileID: 937704820180790078, guid: e1b08032bec16ba4eb1ae23cbd572664,
+    type: 3}
 --- !u!1 &5736459258372144266
 GameObject:
   m_ObjectHideFlags: 0
@@ -150,11 +165,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 90b3274db1c25b644a76c8cc1b09d18d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.36
+      value: -0.88
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 90b3274db1c25b644a76c8cc1b09d18d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1
+      value: -0.24
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 90b3274db1c25b644a76c8cc1b09d18d, type: 3}
       propertyPath: m_LocalRotation.w

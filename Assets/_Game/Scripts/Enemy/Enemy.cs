@@ -37,6 +37,7 @@ namespace Gameplay
             InitHealth(config.Health);
             InitMovement(path, config.PathPassingRate);
             if (_canShoot) InitShooting(config.ShootingData, turret);
+            InitEffects();
 
             return this;
         }
@@ -60,6 +61,12 @@ namespace Gameplay
         {
             if (TryGetComponent<Shooting>(out var shooting))
                 _shooting = new EnemyShooting(transform, shooting, shootingData, turret);
+        }
+
+        private void InitEffects()
+        {
+            if (TryGetComponent<EnemyEffects>(out var effects))
+                OnDeathSignal.Subscribe(_ => effects.PlayExplosionEffect());
         }
 
         private void OnDestroy()

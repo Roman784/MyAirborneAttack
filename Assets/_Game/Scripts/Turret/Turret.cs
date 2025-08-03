@@ -46,6 +46,7 @@ namespace Gameplay
             InitRotation();
             InitShooting();
             InitPosition(anchor);
+            InitEffects();
 
             _isEnabled = true;
 
@@ -81,6 +82,12 @@ namespace Gameplay
         {
             transform.position = anchor.position;
             transform.rotation = anchor.rotation;
+        }
+
+        private void InitEffects()
+        {
+            if (TryGetComponent<TurretEffects>(out var effects))
+                OnDeathSignal.Subscribe(_ => effects.PlayExplosionEffect());
         }
 
         private void OnDestroy()
