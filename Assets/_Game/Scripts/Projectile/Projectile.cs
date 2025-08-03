@@ -1,6 +1,8 @@
+using Effects;
 using R3;
 using System;
 using UnityEngine;
+using Zenject;
 using ITickable = GameTick.ITickable;
 
 namespace Gameplay
@@ -21,8 +23,16 @@ namespace Gameplay
 
         private bool _isEnabled;
 
+        private EffectsFacotry _effectsFacotry;
+
         public Observable<RaycastHit> OnHitSignal => _onHitSignalSubj;
         public Observable<Unit> LifeOverSignal => _lifeOverSignalSubj;
+
+        [Inject]
+        private void Construct(EffectsFacotry effectsFacotry)
+        {
+            _effectsFacotry = effectsFacotry;
+        }
 
         public Projectile(ProjectileView view, ShootingData shootingData, float gravity)
         {
@@ -75,12 +85,19 @@ namespace Gameplay
                 if (hit.collider.TryGetComponent<Hitbox>(out var hitbox))
                     hitbox.Hit(hit, _shootingData.Damage);
 
+                CreateHitEffect(hit);
+
                 _onHitSignalSubj.OnNext(hit);
                 _onHitSignalSubj.OnCompleted();
 
                 return true;
             }
             return false;
+        }
+
+        private void CreateHitEffect(RaycastHit hit)
+        {
+            _effectsFacotry.Create(_shootingData.HitEffectPrefab, hit.point, hit.normal);
         }
 
         private bool CheckLifespan()

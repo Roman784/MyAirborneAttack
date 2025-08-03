@@ -91,7 +91,9 @@ MonoBehaviour:
     <Damage>k__BackingField: 1
     <TargetLayer>k__BackingField:
       serializedVersion: 2
-      m_Bits: 64
+      m_Bits: 320
+    <HitEffectPrefab>k__BackingField: {fileID: -4551448964940002462, guid: 24bc7069ca24e3140a89fafda5a8f65e,
+      type: 3}
 --- !u!114 &3252098187968867558
 MonoBehaviour:
   m_ObjectHideFlags: 0

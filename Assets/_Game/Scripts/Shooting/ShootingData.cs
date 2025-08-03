@@ -1,3 +1,4 @@
+using Effects;
 using System;
 using UnityEngine;
 
@@ -12,5 +13,6 @@ namespace Gameplay
         [field: SerializeField] public float ProjectileFlightSpeed { get; private set; }
         [field: SerializeField] public float Damage { get; private set; }
         [field: SerializeField] public LayerMask TargetLayer { get; private set; }
+        [field: SerializeField] public Effect HitEffectPrefab { get; private set; }
     }
 }

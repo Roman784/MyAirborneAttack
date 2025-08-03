@@ -14,6 +14,7 @@ namespace Gameplay
     {
         private const float GRAVITY = -9.81f;
 
+        private readonly DiContainer _container;
         private readonly GameTickProvider _gameTickProvider;
         private readonly CompositeDisposable _disposables = new();
 
@@ -21,8 +22,9 @@ namespace Gameplay
         private HashSet<Projectile> _spawnedProjectiles = new();
 
         [Inject]
-        public ProjectileFactory(GameTickProvider gameTickProvider)
+        public ProjectileFactory(DiContainer container, GameTickProvider gameTickProvider)
         {
+            _container = container;
             _gameTickProvider = gameTickProvider;
         }
 
@@ -30,7 +32,7 @@ namespace Gameplay
         {
             var viewPrefab = shootingData.ProjectileViewPrefab;
             var view = CreateView(viewPrefab, position);
-            var projectile = new ParabolicProjectile(view, shootingData, GRAVITY, flightDirection);
+            var projectile = _container.Instantiate<ParabolicProjectile>(new object[] { view, shootingData, GRAVITY, flightDirection });
 
             SetLifespan(projectile, view, _viewsMap[viewPrefab.NameId]);
             _spawnedProjectiles.Add(projectile);
@@ -42,7 +44,7 @@ namespace Gameplay
         {
             var viewPrefab = shootingData.ProjectileViewPrefab;
             var view = CreateView(viewPrefab, position);
-            var projectile = new StraightProjectile(view, shootingData, flightDirection);
+            var projectile = _container.Instantiate<StraightProjectile>(new object[] { view, shootingData, flightDirection });
 
             SetLifespan(projectile, view, _viewsMap[viewPrefab.NameId]);
             _spawnedProjectiles.Add(projectile);

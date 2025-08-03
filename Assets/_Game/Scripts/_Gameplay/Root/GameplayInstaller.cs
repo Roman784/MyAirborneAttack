@@ -1,3 +1,4 @@
+using Effects;
 using Gameplay;
 using System;
 using UI;
@@ -25,6 +26,7 @@ namespace GameplayRoot
             Container.BindInterfacesAndSelfTo<ProjectileFactory>().AsSingle();
             Container.Bind<TurretFactory>().AsSingle();
             Container.Bind<EnemyFactory>().AsSingle();
+            Container.BindInterfacesAndSelfTo<EffectsFacotry>().AsSingle();
         }
 
         private void BindTurretInput()

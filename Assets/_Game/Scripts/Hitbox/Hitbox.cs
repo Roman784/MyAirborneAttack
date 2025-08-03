@@ -1,3 +1,4 @@
+using Effects;
 using R3;
 using UnityEngine;
 
@@ -14,7 +15,7 @@ namespace Gameplay
             {
                 Point = hit.point,
                 Normal = hit.normal,
-                Damage = damage
+                Damage = damage,
             };
 
             _onHitSignalSubj.OnNext(hitData);
