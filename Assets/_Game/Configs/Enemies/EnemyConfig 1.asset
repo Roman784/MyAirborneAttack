@@ -13,5 +13,16 @@ MonoBehaviour:
   m_Name: EnemyConfig 1
   m_EditorClassIdentifier: 
   <NameId>k__BackingField: Enemy_1
-  <PathPassingRate>k__BackingField: 0.1
+  <PathPassingRate>k__BackingField: 0.05
   <Health>k__BackingField: 10
+  <CanShoot>k__BackingField: 0
+  <ShootingData>k__BackingField:
+    <ProjectileViewPrefab>k__BackingField: {fileID: 0}
+    <ProjectileType>k__BackingField: 0
+    <Rate>k__BackingField: 0
+    <ProjectileFlightSpeed>k__BackingField: 0
+    <Damage>k__BackingField: 0
+    <TargetLayer>k__BackingField:
+      serializedVersion: 2
+      m_Bits: 0
+    <VisibilityRange>k__BackingField: 0
