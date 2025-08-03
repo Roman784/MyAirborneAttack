@@ -17,7 +17,7 @@ MonoBehaviour:
   <Health>k__BackingField: 10
   <CanShoot>k__BackingField: 1
   <ShootingData>k__BackingField:
-    <ProjectileViewPrefab>k__BackingField: {fileID: 2954158392184157082, guid: c9dcf7310cefdaa449869d74221200fa,
+    <ProjectileViewPrefab>k__BackingField: {fileID: 2954158392184157082, guid: 4340d2171af3c7e4786459cf37749315,
       type: 3}
     <ProjectileType>k__BackingField: 2
     <Rate>k__BackingField: 1
