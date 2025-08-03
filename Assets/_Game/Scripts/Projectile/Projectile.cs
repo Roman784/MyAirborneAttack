@@ -1,10 +1,11 @@
 using R3;
+using System;
 using UnityEngine;
 using ITickable = GameTick.ITickable;
 
 namespace Gameplay
 {
-    public abstract class Projectile : ITickable
+    public abstract class Projectile : ITickable, IDisposable
     {
         private const float LIFESPAN = 3f;
 
@@ -18,12 +19,15 @@ namespace Gameplay
         private Subject<RaycastHit> _onHitSignalSubj;
         private Subject<Unit> _lifeOverSignalSubj;
 
+        private bool _isEnabled;
+
         public Observable<RaycastHit> OnHitSignal => _onHitSignalSubj;
         public Observable<Unit> LifeOverSignal => _lifeOverSignalSubj;
 
         public Projectile(ProjectileView view, ShootingData shootingData, float gravity)
         {
             _view = view;
+            _isEnabled = true;
 
             _initialPosition = _view.Position;
             _shootingData = shootingData;
@@ -35,6 +39,8 @@ namespace Gameplay
 
         public void Tick(float deltaTime)
         {
+            if (!_isEnabled) return;
+
             _flightTime += deltaTime;
 
             if (!CheckLifespan()) return;
@@ -42,6 +48,13 @@ namespace Gameplay
 
             Move();
             RotateAccordingMovement();
+        }
+
+        public void Dispose()
+        {
+            _isEnabled = false;
+            _lifeOverSignalSubj.OnNext(Unit.Default);
+            _lifeOverSignalSubj.OnCompleted();
         }
 
         protected abstract void Move();

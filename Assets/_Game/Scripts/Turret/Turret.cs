@@ -26,6 +26,8 @@ namespace Gameplay
         private ITurretInput _input;
         private GameTickProvider _tickProvider;
 
+        private bool _isEnabled;
+
         public Health Health => _health;
         public Observable<Unit> OnDeathSignal => _health.OnDeathSignal;
 
@@ -44,6 +46,8 @@ namespace Gameplay
             InitRotation();
             InitShooting();
             InitPosition(anchor);
+
+            _isEnabled = true;
 
             return this;
         }
@@ -86,6 +90,8 @@ namespace Gameplay
 
         public void Tick(float deltaTime)
         {
+            if (!_isEnabled) return;
+
             if (!_input.IsActive()) return;
             var inputAxes = _input.GetAxes();
 
@@ -101,6 +107,7 @@ namespace Gameplay
 
         private void OnDeath()
         {
+            _isEnabled = false;
             Destroy(gameObject);
         }
     }

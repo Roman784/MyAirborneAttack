@@ -5,16 +5,20 @@ using Zenject;
 using GameTick;
 using R3;
 using UnityEditor;
+using System;
+using Object = UnityEngine.Object;
 
 namespace Gameplay
 {
-    public class ProjectileFactory
+    public class ProjectileFactory : IDisposable
     {
         private const float GRAVITY = -9.81f;
 
         private readonly GameTickProvider _gameTickProvider;
-        
+        private readonly CompositeDisposable _disposables = new();
+
         private Dictionary<string, ObjectPool<ProjectileView>> _viewsMap = new();
+        private HashSet<Projectile> _spawnedProjectiles = new();
 
         [Inject]
         public ProjectileFactory(GameTickProvider gameTickProvider)
@@ -29,6 +33,7 @@ namespace Gameplay
             var projectile = new ParabolicProjectile(view, shootingData, GRAVITY, flightDirection);
 
             SetLifespan(projectile, view, _viewsMap[viewPrefab.NameId]);
+            _spawnedProjectiles.Add(projectile);
 
             return projectile;
         }
@@ -40,8 +45,18 @@ namespace Gameplay
             var projectile = new StraightProjectile(view, shootingData, flightDirection);
 
             SetLifespan(projectile, view, _viewsMap[viewPrefab.NameId]);
+            _spawnedProjectiles.Add(projectile);
 
             return projectile;
+        }
+
+        public void Dispose()
+        {
+            _disposables.Dispose();
+            foreach (var projectile in _spawnedProjectiles)
+            {
+                projectile.Dispose();
+            }
         }
 
         private ProjectileView CreateView(ProjectileView viewPrefab, Vector3 position)
@@ -76,7 +91,8 @@ namespace Gameplay
             {
                 _gameTickProvider.RemoveTickable(projectile);
                 viewsPool.Release(view);
-            });
+            })
+            .AddTo(_disposables);
         }
     }
 }

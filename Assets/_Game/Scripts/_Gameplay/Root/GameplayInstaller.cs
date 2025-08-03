@@ -22,7 +22,7 @@ namespace GameplayRoot
         {
             Container.Bind<SceneUIFactory>().AsSingle();
             Container.Bind<GameplayLevelFactory>().AsSingle();
-            Container.Bind<ProjectileFactory>().AsSingle();
+            Container.BindInterfacesAndSelfTo<ProjectileFactory>().AsSingle();
             Container.Bind<TurretFactory>().AsSingle();
             Container.Bind<EnemyFactory>().AsSingle();
         }

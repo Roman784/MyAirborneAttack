@@ -21,7 +21,7 @@ MonoBehaviour:
       type: 3}
     <ProjectileType>k__BackingField: 2
     <Rate>k__BackingField: 1
-    <ProjectileFlightSpeed>k__BackingField: 10
+    <ProjectileFlightSpeed>k__BackingField: 50
     <Damage>k__BackingField: 1
     <TargetLayer>k__BackingField:
       serializedVersion: 2
