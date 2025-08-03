@@ -95,7 +95,8 @@ namespace Gameplay
         private void OnDeath()
         {
             Disable();
-            Destroy(gameObject);
+
+            new FallingAnimation(gameObject, _movement.Velocity);
         }
     }
 }

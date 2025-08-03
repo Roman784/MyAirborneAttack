@@ -64,7 +64,7 @@ namespace GameplayRoot
                 .AddTo(_disposables);
 
             level.LevelPassedSignal
-                .Subscribe(_ => Observable.Timer(TimeSpan.FromSeconds(1))
+                .Subscribe(_ => Observable.Timer(TimeSpan.FromSeconds(3))
                 .Subscribe(_ => _popUpProvider.OpenLevelPassedPopUp())
                 .AddTo(_disposables))
                 .AddTo(_disposables);
