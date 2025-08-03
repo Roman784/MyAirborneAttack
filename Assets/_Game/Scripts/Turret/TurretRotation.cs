@@ -51,7 +51,7 @@ namespace Gameplay
         private void RotateBarrel(ref float angle)
         {
             angle = Mathf.Clamp(angle, _barrelClampAngles.x, _barrelClampAngles.y);
-            _barrel.localRotation = Quaternion.Euler(0f, 0f, angle);
+            _barrel.localRotation = Quaternion.Euler(angle, 0f, 0f);
         }
 
         private Vector2 ClampVelocity(Vector2 velocity)
