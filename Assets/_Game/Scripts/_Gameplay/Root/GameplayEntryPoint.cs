@@ -14,6 +14,8 @@ namespace GameplayRoot
     {
         [SerializeField] private GameplayUI _gameplayUIPrefab;
 
+        private readonly CompositeDisposable _disposables = new();
+
         private GameplayLevelFactory _levelFactory;
         private GameplayPopUpProvider _popUpProvider;
 
@@ -50,24 +52,36 @@ namespace GameplayRoot
 
             // UI.
             var ui = _uiFactory.Create(_gameplayUIPrefab);
-            startWaveSignal.Subscribe(e => ui.ShowWaveProgress(e.Item1, e.Item2));
             ui.InitTurrentHealthBar(turret);
+            startWaveSignal
+                .Subscribe(e => ui.ShowWaveProgress(e.Item1, e.Item2))
+                .AddTo(_disposables);
 
             turret.OnDeathSignal
                 .Subscribe(_ => Observable.Timer(TimeSpan.FromSeconds(1))
-                .Subscribe(_ => _popUpProvider.OpenGameOverPopUp()));
+                .Subscribe(_ => _popUpProvider.OpenGameOverPopUp())
+                .AddTo(_disposables))
+                .AddTo(_disposables);
 
             level.LevelPassedSignal
                 .Subscribe(_ => Observable.Timer(TimeSpan.FromSeconds(1))
-                .Subscribe(_ => _popUpProvider.OpenLevelPassedPopUp()));
+                .Subscribe(_ => _popUpProvider.OpenLevelPassedPopUp())
+                .AddTo(_disposables))
+                .AddTo(_disposables);
 
             // Start gameplay.
             Observable.Timer(TimeSpan.FromSeconds(1))
-                .Subscribe(_ => level.StartWaves());
+                .Subscribe(_ => level.StartWaves())
+                .AddTo(_disposables);
 
             isLoaded = true;
 
             yield return new WaitUntil(() => isLoaded);
+        }
+
+        private void OnDestroy()
+        {
+            _disposables.Dispose();
         }
     }
 }
