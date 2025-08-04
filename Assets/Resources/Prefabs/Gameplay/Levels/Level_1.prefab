@@ -26,13 +26,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2814441714234312832}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.65793574, z: -0, w: 0.75307405}
-  m_LocalPosition: {x: 31.4, y: 29.4, z: 30.4}
+  m_LocalRotation: {x: -0, y: -0.5957467, z: -0, w: -0.80317247}
+  m_LocalPosition: {x: -58, y: 29.4, z: 21.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8418355390658517973}
-  m_LocalEulerAnglesHint: {x: 0, y: -82.285, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -286.86798, z: 0}
 --- !u!114 &6144614518601544249
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1034,11 +1034,11 @@ MonoBehaviour:
       <EnemyConfig>k__BackingField: {fileID: 11400000, guid: 9918ce037be26e84484abed96b08a4ad,
         type: 2}
       <EnemyPath>k__BackingField: {fileID: 4439741081899452931}
-    - <TimeSinceWaveStart>k__BackingField: 3
+    - <TimeSinceWaveStart>k__BackingField: 4
       <EnemyConfig>k__BackingField: {fileID: 11400000, guid: f1ec9fe4263b99c45ab05bb0d27c0e4b,
         type: 2}
       <EnemyPath>k__BackingField: {fileID: 3875698100384041290}
-    - <TimeSinceWaveStart>k__BackingField: 3
+    - <TimeSinceWaveStart>k__BackingField: 0
       <EnemyConfig>k__BackingField: {fileID: 11400000, guid: 9918ce037be26e84484abed96b08a4ad,
         type: 2}
       <EnemyPath>k__BackingField: {fileID: 6402260252531788612}
