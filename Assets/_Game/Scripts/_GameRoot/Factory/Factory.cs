@@ -1,7 +1,5 @@
 using Assets;
-using System;
 using System.Collections.Generic;
-using UnityEngine;
 using Zenject;
 using Object = UnityEngine.Object;
 
@@ -12,6 +10,8 @@ namespace GameRoot
         protected readonly DiContainer _container;
         protected readonly IAssetsProvider _assetsProvider;
 
+        private Dictionary<string, Object> _prefabsMap = new();
+
         [Inject]
         public Factory(DiContainer container, IAssetsProvider assetsProvider)
         {
@@ -21,7 +21,13 @@ namespace GameRoot
 
         public T LoadPrefab<T>(string path) where T : Object
         {
-            return _assetsProvider.Load<T>(path);
+            if (!_prefabsMap.TryGetValue(path, out var prefab))
+            {
+                prefab = _assetsProvider.Load<T>(path);
+                _prefabsMap[path] = prefab;
+            }
+
+            return (T)prefab;
         }
     }
 }

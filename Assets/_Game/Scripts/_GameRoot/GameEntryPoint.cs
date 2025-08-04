@@ -45,6 +45,7 @@ namespace GameRoot
         // Starts the first scene the player will see.
         private void StartGame()
         {
+            // From state or default.
             _sceneProvider.OpenGameplay(1, "Turret");
         }
     }
